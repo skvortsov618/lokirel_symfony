@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Lokirel - Озеленение и Уход за растениями{% endblock %}</title>
+        <meta name="description" content="{% block description %}Профессиональное озеленение офисов и других помещений с выездом специалиста.{% endblock %}">
+        <meta name="og:title" property="og:title" content="{% block ogtitle %}Lokirel - Озеленение и Уход за растениями{% endblock %}">
+        {# TO DO: og:url, og:description, og:image #}
+        <link rel="canonical" href="https://lokirel.ru/">
+
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

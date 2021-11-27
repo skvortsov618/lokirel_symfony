@@ -3,17 +3,21 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class LandingController
+class LandingController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name="app_homepage")
      * @return Response
      */
-    public function homepage()
+    public function landing()
     {
-        return new Response('Lokirel');
+        dump($this);
+        return $this->render('landing.html.twig', [
+            'random_value' => 3
+        ]);
     }
 }
