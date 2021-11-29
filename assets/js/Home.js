@@ -14,7 +14,6 @@ class Home extends Component {
                 <p>THIS COMES FROM REACT HOME</p>
                 <Swiper
                     modules={[Mousewheel, Navigation]}
-                    navigation
                     mousewheel
                     // direction={"vertical"}
                     onSlideChange={()=>console.log('slide change')}

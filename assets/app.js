@@ -14,10 +14,10 @@ import './styles/app.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from "react-router-dom";
-import Home from './js/Home';
+import Index from './js/Index';
 
 ReactDOM.render(
     <Router>
-        <Home />
+        <Index />
     </Router>, document.getElementById('root')
 );
