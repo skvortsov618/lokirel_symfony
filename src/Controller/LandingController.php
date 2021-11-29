@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LandingController extends AbstractController
 {
     /**
-     * @Route("/", name="app_homepage")
+     * @Route("/{reactRouting}", name="app_homepage", defaults={"reactRouting": null} )
      * @return Response
      */
     public function landing()

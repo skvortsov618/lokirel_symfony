@@ -13,11 +13,6 @@ import './styles/app.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
-import Index from './js/Index';
+import Index from "./js/Index";
 
-ReactDOM.render(
-    <Router>
-        <Index />
-    </Router>, document.getElementById('root')
-);
+ReactDOM.render(<Index />, document.getElementById('root'));

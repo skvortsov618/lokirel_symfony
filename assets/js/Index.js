@@ -1,19 +1,21 @@
 import React, {Component} from 'react';
-import {Route, Switch,Redirect, Link, withRouter} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Landing from './components/Landing';
+import Missing from './components/Missing';
+
 
 
 import 'swiper/scss';
 
-class Index extends Component {
-
-    render() {
-        return (
-            <div className="App">
-                <Landing />
-            </div>
-        )
-    }
+const Index = () => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<Landing />} />
+                <Route path="*" element={<Missing />} />
+            </Routes>
+        </Router>
+    )
 }
 
 export default Index;

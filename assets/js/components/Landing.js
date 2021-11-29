@@ -6,6 +6,7 @@ import BlockCardPicture from "./Landing/BlockCardPicture";
 import BlockCarousel from "./Landing/BlockCarousel";
 import BlockFourSteps from "./Landing/BlockFourSteps";
 import BlockVideo from "./Landing/BlockVideo";
+import BlockFeedback from "./Landing/BlockFeedback";
 
 const Landing = () => {
 
@@ -21,17 +22,13 @@ const Landing = () => {
                 onSlideChange={()=>console.log('slide change')}
                 style={{height:"100vh"}}
             >
+                <SwiperSlide><BlockFeedback /></SwiperSlide>
                 <SwiperSlide><BlockCover /></SwiperSlide>
                 <SwiperSlide><BlockCardPicture /></SwiperSlide>
                 <SwiperSlide><BlockCarousel /></SwiperSlide>
                 <SwiperSlide><BlockFourSteps /></SwiperSlide>
                 <SwiperSlide><BlockVideo /></SwiperSlide>
             </Swiper>
-            {/* <BlockCover />
-            <BlockCardPicture />
-            <BlockCarousel />
-            <BlockFourSteps />
-            <BlockVideo /> */}
         </div>
     );
 }
