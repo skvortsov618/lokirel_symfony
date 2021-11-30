@@ -10,37 +10,31 @@ const BlockCarousel = () => {
     const carousel_title = "Спасенные нами растения";
 
     return ( 
-        <div className="blockCarousel" style={{
-            width: "100%",
-            height: "100vh",
-            backgroundColor: "white"
-        }}>
-            <h2 className="BlockCarousel__title" style={{
-                textAlign: "center",
-                color: "black",
-                height: "10%"
-            }}>
+        <div className="blockCarousel">
+            <h2 className="blockCarousel__title">
                 { carousel_title }
             </h2>
-            <Swiper 
-                spaceBetween={50}
-                slidesPerView={3}
-                loop
-                onSlideChange={() => console.log('slide change')}
-                onSwiper={(swiper) => console.log(swiper)}
-                style= {{
-                    height: 500,
-                    margin: "0px 100px 0px 100px",
-                    overflow: "hidden"
-                }}
-            >
-                <SwiperSlide><SwiperCard /></SwiperSlide>
-                <SwiperSlide><SwiperCard /></SwiperSlide>
-                <SwiperSlide><SwiperCard /></SwiperSlide>
-                <SwiperSlide><SwiperCard /></SwiperSlide>
-                <SwiperSlide><SwiperCard /></SwiperSlide>
-                <SwiperSlide><SwiperCard /></SwiperSlide>
-            </Swiper>
+            <div className="blockCarousel__swiper-container">
+                <Swiper
+                    spaceBetween={50}
+                    slidesPerView={3}
+                    loop
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    style= {{
+                        height: '65vh',
+                        // margin: "0px 100px 0px 100px",
+                        // overflow: "hidden"
+                    }}
+                >
+                    <SwiperSlide style={{height:'100%'  } }><SwiperCard /></SwiperSlide>
+                    <SwiperSlide><SwiperCard /></SwiperSlide>
+                    <SwiperSlide><SwiperCard /></SwiperSlide>
+                    <SwiperSlide><SwiperCard /></SwiperSlide>
+                    <SwiperSlide><SwiperCard /></SwiperSlide>
+                    <SwiperSlide><SwiperCard /></SwiperSlide>
+                </Swiper>
+            </div>
         </div>
     );
 }
