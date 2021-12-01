@@ -18,17 +18,17 @@ class Feedback
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=55, nullable=true)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="string", length=120, nullable=true)
      */
     private $phone;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=55, nullable=true)
      */
     private $theme;
 
@@ -38,9 +38,24 @@ class Feedback
     private $text;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=55, nullable=true)
      */
     private $source;
+
+    /**
+     * @ORM\Column(type="string", length=55, nullable=true)
+     */
+    private $callname;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $mailing;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $sendtime;
 
     public function getId(): ?int
     {
@@ -103,6 +118,42 @@ class Feedback
     public function setSource(?string $source): self
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    public function getCallname(): ?string
+    {
+        return $this->callname;
+    }
+
+    public function setCallname(?string $callname): self
+    {
+        $this->callname = $callname;
+
+        return $this;
+    }
+
+    public function getMailing(): ?bool
+    {
+        return $this->mailing;
+    }
+
+    public function setMailing(bool $mailing): self
+    {
+        $this->mailing = $mailing;
+
+        return $this;
+    }
+
+    public function getSendtime(): ?\DateTimeImmutable
+    {
+        return $this->sendtime;
+    }
+
+    public function setSendtime(\DateTimeImmutable $sendtime): self
+    {
+        $this->sendtime = $sendtime;
 
         return $this;
     }
