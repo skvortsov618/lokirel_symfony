@@ -17,17 +17,19 @@ const BlockCarousel = () => {
             <div className="blockCarousel__swiper-container">
                 <Swiper
                     spaceBetween={50}
+                    //менять количество слайдов нужно в мобильной версии, скорее всего через пропсы прокидывать
+                    //перед этим определяя с какого устройства человек сидит
                     slidesPerView={3}
                     loop
                     onSlideChange={() => console.log('slide change')}
                     onSwiper={(swiper) => console.log(swiper)}
+                    
                     style= {{
+                        //не знаю как сдесь написать стиль не инлайн
                         height: '65vh',
-                        // margin: "0px 100px 0px 100px",
-                        // overflow: "hidden"
                     }}
                 >
-                    <SwiperSlide style={{height:'100%'  } }><SwiperCard /></SwiperSlide>
+                    <SwiperSlide><SwiperCard /></SwiperSlide>
                     <SwiperSlide><SwiperCard /></SwiperSlide>
                     <SwiperSlide><SwiperCard /></SwiperSlide>
                     <SwiperSlide><SwiperCard /></SwiperSlide>
