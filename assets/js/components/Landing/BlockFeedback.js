@@ -1,4 +1,6 @@
 import React from "react";
+import styled from "styled-components";
+import TextField from '@mui/material/TextField';
 
 const BlockFeedback = () => {
 
@@ -14,6 +16,8 @@ const BlockFeedback = () => {
         //TODO make json and send to backend
         //TODO change form to "form submitted"
     }
+    const SIF = styled.div`
+        background-color: white;`
 
     return ( 
         <div className="blockFeedback" style={{
@@ -32,6 +36,16 @@ const BlockFeedback = () => {
                     border: "2px lightgrey solid",
                     borderRadius: 20, margin: 100, padding: 30
                 }}>
+                    <SIF>
+                    <TextField
+                        required
+                        fullWidth
+                        id="lastName"
+                        label="Last Name"
+                        name="lastName"
+                        autoComplete="family-name"
+                    />
+                    </SIF>
                     <input type="text" id="fname" name="fname" maxLength="50" placeholder="Как к вам обращаться?"/><br />
                     <fieldset>
                         <legend>Контакты</legend>
