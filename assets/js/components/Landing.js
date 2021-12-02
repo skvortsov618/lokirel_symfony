@@ -1,5 +1,5 @@
 import React from "react";
-import {Mousewheel, Navigation} from 'swiper';
+import {Mousewheel, Scrollbar} from 'swiper';
 import {Swiper, SwiperSlide} from "swiper/react";
 import BlockCover from "./Landing/BlockCover";
 import BlockCardPicture from "./Landing/BlockCardPicture";
@@ -7,6 +7,11 @@ import BlockCarousel from "./Landing/BlockCarousel";
 import BlockFourSteps from "./Landing/BlockFourSteps";
 import BlockVideo from "./Landing/BlockVideo";
 import BlockFeedback from "./Landing/BlockFeedback";
+import BlockVTabs from "./Landing/BlockVTabs";
+import BlockFooter from "./Landing/BlockFooter";
+
+import 'swiper/css';
+import 'swiper/css/scrollbar';
 
 const Landing = () => {
 	
@@ -16,18 +21,23 @@ const Landing = () => {
 			position: "relative"
 		}}>
 			<Swiper
-				modules={[Mousewheel, Navigation]}
+				modules={[Mousewheel, Scrollbar]}
 				mousewheel
+				scrollbar={{
+					draggable: true
+				}}
 				direction={"vertical"}
 				onSlideChange={() => console.log('slide change')}
 				style={{height: "100vh"}}
 			>
-				<SwiperSlide><BlockFeedback /></SwiperSlide>
 				<SwiperSlide><BlockCover /></SwiperSlide>
 				<SwiperSlide><BlockCardPicture /></SwiperSlide>
 				<SwiperSlide><BlockCarousel/></SwiperSlide>
 				<SwiperSlide><BlockFourSteps/></SwiperSlide>
 				<SwiperSlide><BlockVideo/></SwiperSlide>
+				<SwiperSlide><BlockVTabs /></SwiperSlide>
+				<SwiperSlide><BlockFeedback /></SwiperSlide>
+				<SwiperSlide><BlockFooter /></SwiperSlide>
 			</Swiper>
 		</div>
 	);

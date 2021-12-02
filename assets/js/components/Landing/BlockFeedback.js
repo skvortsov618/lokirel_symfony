@@ -53,15 +53,21 @@ const BlockFeedback = () => {
                 onSubmit={(values, {setSubmitting}) =>{
                     const xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
-                            console.log(JSON.parse(this.response))
-                            setSubmitting(false)
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {
+                                console.log(JSON.parse(this.response))
+                                setSubmitting(false)
+                            } else {
+                                setSubmitting(false)
+                                console.log("ERROR HAPPENED PLS TRY AGAIN OR CONTACT US DIRECTLY")
+                            }
                         }
                     };
                     // xhttp.onload = function(data) {
                     //     console.log(data);
                     // }
                     xhttp.open("POST", "/feedback", true);
+                    // xhttp.open("POST", "https://dimmyraves.ru", true);
                     xhttp.setRequestHeader("Content-type", "application/json");
                     xhttp.send(JSON.stringify(values));
                     // setTimeout(()=>{

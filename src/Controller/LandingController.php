@@ -24,7 +24,7 @@ class LandingController extends AbstractController
         $femail=htmlentities(substr(trim($data["femail"]), 0, 100), ENT_QUOTES, "UTF-8");
         $ftel=htmlentities(substr(trim($data["ftel"]), 0, 50), ENT_QUOTES, "UTF-8");
         $ftext=htmlentities(substr(trim($data["ftext"]), 0, 250), ENT_QUOTES, "UTF-8");
-        $fmailing=$data["fmailing"];
+        $fmailing = htmlentities( $data["fmailing"], ENT_QUOTES, "UTF-8" ) == "1";
 
         $feedback = new Feedback();
         $feedback->setCallname($fname);
@@ -41,7 +41,7 @@ class LandingController extends AbstractController
 
         $response = new JsonResponse();
         $response->headers->set("Content-Type", "aplication/json");
-        $response->headers->set("Access-Control-Allow-Origin", "*");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($fmailing)));
         return $response;
     }
