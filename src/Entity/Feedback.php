@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FeedbackRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FeedbackRepository::class)
@@ -18,37 +19,45 @@ class Feedback
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=55, nullable=true)
+     * @ORM\Column(type="string", length=140, nullable=true)
+     * @Assert\Length(max = 140)
+     * @Assert\Email(mode="loose")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=120, nullable=true)
+     * @ORM\Column(type="string", length=55, nullable=true)
+     * @Assert\Length(max=55)
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=55, nullable=true)
+     * @Assert\Length(max=55 )
      */
     private $theme;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(max=255)
      */
     private $text;
 
     /**
      * @ORM\Column(type="string", length=55, nullable=true)
+     * @Assert\Length(max=55)
      */
     private $source;
 
     /**
      * @ORM\Column(type="string", length=55, nullable=true)
+     * @Assert\Length(max=55)
      */
     private $callname;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotNull
      */
     private $mailing;
 
