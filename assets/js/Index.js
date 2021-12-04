@@ -12,7 +12,6 @@ const Index = () => {
     return (
         <Router>
             <Navbar />
-            
             <Routes>
                 <Route path="/privacypolicy" element={<PrivacyPolicy />} />
                 <Route path="/contacts" element={<Contacts />} />

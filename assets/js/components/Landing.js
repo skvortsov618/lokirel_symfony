@@ -9,6 +9,7 @@ import BlockVideo from "./Landing/BlockVideo";
 import BlockFeedback from "./Landing/BlockFeedback";
 import BlockVTabs from "./Landing/BlockVTabs";
 import BlockFooter from "./Landing/BlockFooter";
+import {Helmet} from "react-helmet";
 
 import 'swiper/css';
 import 'swiper/css/scrollbar';
@@ -20,6 +21,11 @@ const Landing = () => {
 			height: "100vh",
 			position: "relative"
 		}}>
+			<Helmet>
+                <meta charSet="utf-8" />
+                <title>Lokirel - Профессиональный уход и озеленение</title>
+                <meta name="description" content="Озеленение офисов и услуги фитоняни" />
+            </Helmet>
 			<Swiper
 				modules={[Mousewheel, Scrollbar]}
 				mousewheel

@@ -1,4 +1,9 @@
 import React from "react";
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
 
 const SwiperCard = () => {
 
@@ -7,27 +12,26 @@ const SwiperCard = () => {
     const header    = "Lokirel";
     const subheader = "Озеленение и профессиональный уход за растениями";
 
-    return ( 
-        <div className="swiperCard" style={{
-            backgroundImage: `url(${image_src})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-        }}>
-            {/* <img className="blockCover__image" src={image_src} alt={image_alt} /> */}
-            <div className="swiperCard__info" style= {{
-                textAlign: "center",
-                color: "white"
-            }}>
-                <div style={{fontSize: "50px"}}className="blockCover__titles__header">{ header }</div>
-                <h1 className="blockCover__titles__subheader">{ subheader }</h1>
-            </div>
-        </div>
+    return (
+        <Card sx={{ maxWidth: 345, height: "100%" }}>
+            <CardMedia
+                component="img"
+                height="100%"
+                image={image_src}
+                alt="green iguana"
+                />
+                <CardContent sx={{position: "absolute", bottom: 0, top: "60%", width: "340px", backgroundColor: "rgba(0,0,0,0.5)"}}>
+                    <Typography gutterBottom variant="h5" component="div">
+                        Lizard
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        Lizards are a widespread group of squamate reptiles, with over 6,000
+                        species, ranging across all continents except Antarctica
+                    </Typography>
+                </CardContent>
+            <CardActionArea>
+            </CardActionArea>
+        </Card>
     );
 }
  
