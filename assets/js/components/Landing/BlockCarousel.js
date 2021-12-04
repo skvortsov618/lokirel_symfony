@@ -1,6 +1,7 @@
 import React from "react";
-import { Mousewheel, Navigation } from 'swiper';
+import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/react";
+import styled from 'styled-components';
 
 import "swiper/scss"
 import SwiperCard from "./SwiperCard";
@@ -14,24 +15,24 @@ const BlockCarousel = () => {
             <h2 className="blockCarousel__title">
                 { carousel_title }
             </h2>
-            <div className="blockCarousel__swiper-container">
+            <div className="blockCarousel__swiper-container" style={{paddingLeft: 30, paddingRight: 30, paddingBottom: 30}}>
                 <Swiper
-                    spaceBetween={10}
+                    modules={[Navigation]}
+                    navigation
+                    slidesPerView={1}
+                    spaceBetween={30}
                     //менять количество слайдов нужно в мобильной версии, скорее всего через пропсы прокидывать
                     //перед этим определяя с какого устройства человек сидит
                     //----вжух вжух  - breakpoints! для корректного отображения надо менять размер слайда в зависимости от размера экрана
-                    slidesPerView={1}
                     loop
                     breakpoints={{
                         // when window width is >= 640px
                         640: {
-                          width: 640,
-                          slidesPerView: 1,
+                          slidesPerView: 2,
                         },
                         // when window width is >= 768px
-                        768: {
-                          width: 768,
-                          slidesPerView: 2,
+                        1000: {
+                          slidesPerView: 3,
                         },
                       }}
                     onSlideChange={() => console.log('slide change')}
@@ -42,12 +43,12 @@ const BlockCarousel = () => {
                         height: '65vh',
                     }}
                 >
-                    <SwiperSlide><SwiperCard /></SwiperSlide>
-                    <SwiperSlide><SwiperCard /></SwiperSlide>
-                    <SwiperSlide><SwiperCard /></SwiperSlide>
-                    <SwiperSlide><SwiperCard /></SwiperSlide>
-                    <SwiperSlide><SwiperCard /></SwiperSlide>
-                    <SwiperSlide><SwiperCard /></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
                 </Swiper>
             </div>
         </div>
