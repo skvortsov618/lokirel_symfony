@@ -1,4 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
 import  './../../../styles/index.scss'
 
 const BlockFooter = () => {
@@ -12,11 +16,21 @@ const BlockFooter = () => {
         <div className="blockCover" style={{
             backgroundImage: `url(${image_src})`
         }}>
-            {/* <img className="blockCover__image" src={image_src} alt={image_alt} /> */}
-            <div className="blockCover__titles">
-                <div className="blockCover__titles__header">{header}</div>
-                <h1 className="blockCover__titles__subheader">{ subheader }</h1>
-            </div>
+            <Stack sx={{width:"100%", height: "100%", backgroundColor: "rgba(0,0,0,0.5"}}>
+                <Container sx={{ width:"100%", height: "80%"}}>
+                    <Stack>
+                        <Link to="/contacts">Контакты</Link>
+                        <Link to="/privacypolicy">Политика конфиденциальности</Link>
+                    </Stack>
+                    <Stack>
+                        <div>Позвоните нам: <a href="tel:+79776340878">89776340878</a></div>
+                        <div>Напишите нам: <a href="https://wa.me/79776340878">WA</a></div>
+                        <div>Lokirel в соцсетях: <a>Inst</a><a>Facebook</a></div>
+                    </Stack>
+                </Container>
+                <Divider variant="middle" />
+                <Container sx={{ width:"100%", height: "20%", textAlign: "center"}}>LOKIREL 2021</Container>
+            </Stack>
         </div>
     );
 }
