@@ -9,17 +9,16 @@
         {# TO DO: og:url, og:description, og:image #}
         <link rel="canonical" href="https://lokirel.ru/">
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-        {% endblock %}
+        {{ encore_entry_link_tags('app') }}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        {{ encore_entry_script_tags('app') }}
+
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <noscript>Добрый день!
+        Для просмотра этого сайта нужен современный браузер с JavaScript.
+        Мы занимаем озеленением и уходом за рстениями в Москве и Московской области.
+        Вы можете найти нас в социальных сетях, написать на email или позвонить нам по телефону.</noscript>
+        <div id="root"><div>
     </body>
 </html>

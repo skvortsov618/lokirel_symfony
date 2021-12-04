@@ -36,13 +36,13 @@ const Landing = () => {
 				onSlideChange={() => console.log('slide change')}
 				style={{height: "100vh"}}
 			>
-				{/*<SwiperSlide><BlockCover /></SwiperSlide>
+				<SwiperSlide><BlockCover /></SwiperSlide>
 				<SwiperSlide><BlockCardPicture /></SwiperSlide>
 				<SwiperSlide><BlockCarousel/></SwiperSlide>
 				<SwiperSlide><BlockFourSteps/></SwiperSlide>
 				<SwiperSlide><BlockVideo/></SwiperSlide>
 				<SwiperSlide><BlockVTabs /></SwiperSlide>
-				<SwiperSlide><BlockFeedback /></SwiperSlide>*/}
+				<SwiperSlide><BlockFeedback /></SwiperSlide>
 				<SwiperSlide><BlockFooter /></SwiperSlide>
 			</Swiper>
 		</div>
