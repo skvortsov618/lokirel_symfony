@@ -20,10 +20,11 @@ const Landing = () => {
 		<div className="Landing" style={{
 			height: "100vh",
 			position: "relative"
+			
 		}}>
 			<Helmet>
                 <meta charSet="utf-8" />
-                <title>Lokirel - Профессиональный уход и озеленение</title>
+                <title>Lokirel - ПрофессионЗальный уход и озеленение</title>
                 <meta name="description" content="Озеленение офисов и услуги фитоняни" />
             </Helmet>
 			<Swiper
@@ -40,7 +41,7 @@ const Landing = () => {
 				<SwiperSlide><BlockCardPicture /></SwiperSlide>
 				<SwiperSlide><BlockCarousel/></SwiperSlide>
 				<SwiperSlide><BlockFourSteps/></SwiperSlide>
-				{/* <SwiperSlide><BlockVideo/></SwiperSlide> */}
+				 {/*<SwiperSlide><BlockVideo/></SwiperSlide>*/}
 				<SwiperSlide><BlockVTabs /></SwiperSlide>
 				<SwiperSlide><BlockFeedback /></SwiperSlide>
 				<SwiperSlide><BlockFooter /></SwiperSlide>

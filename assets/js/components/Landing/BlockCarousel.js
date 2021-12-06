@@ -1,7 +1,12 @@
 import React from "react";
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from "swiper/react";
-import styled from 'styled-components';
+import img01 from '../../../images/photos/carousel/01.png'
+import img02 from '../../../images/photos/carousel/02.png'
+import img03 from '../../../images/photos/carousel/03.jpg'
+import img04 from '../../../images/photos/carousel/04.jpg'
+import img05 from '../../../images/photos/carousel/05.jpg'
+import img06 from '../../../images/photos/carousel/06.jpg'
 
 import "swiper/scss"
 import SwiperCard from "./SwiperCard";
@@ -43,12 +48,12 @@ const BlockCarousel = () => {
                         height: '65vh',
                     }}
                 >
-                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
-                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
-                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
-                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
-                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
-                    <SwiperSlide><SwiperCard cardImage="https://images7.alphacoders.com/451/451013.jpg" cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage={img01} cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage={img02} cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage={img03} cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage={img04} cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage={img05} cardText="saorins"/></SwiperSlide>
+                    <SwiperSlide><SwiperCard cardImage={img06} cardText="saorins"/></SwiperSlide>
                 </Swiper>
             </div>
         </div>

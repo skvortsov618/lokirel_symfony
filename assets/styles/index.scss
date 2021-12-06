@@ -6,7 +6,15 @@ body {
       padding: 0;
       font-family: Montserrat;
 }
+//-------------------commonClasses--------------------------------------
 
+.paddingBtm{
+      padding-bottom: 15px;
+}
+//-------------------Mui------------------------------------------------
+//.MuiTypography-root {
+//      font-family: Montserrat !important;
+//}
 //-------------------blockCover-----------------------------------------
 @media(min-width: 576px) {
 
@@ -93,7 +101,7 @@ body {
                   width: 390px;
                   position: relative;
                   left: -3.5%;
-                  box-shadow: -4px 4px 15px rgba(0, 0, 0, 0.5);
+                  box-shadow:  -4px 4px 15px rgba(0, 0, 0, 0.5) ;
                   img{
                         display: block;
                         width: 100%;
@@ -272,7 +280,6 @@ body {
       }
 }
 .steps {
-      border: 2px solid silver;
       border-radius: 20px;
       display: flex;
       flex-flow: row wrap;
@@ -401,6 +408,11 @@ body {
                   }
             }
       }
+}
+
+//------------bgFeedback------------------------------------------------
+.bgFeedback {
+
 }
 
 //@media(max-width: 1199px) {

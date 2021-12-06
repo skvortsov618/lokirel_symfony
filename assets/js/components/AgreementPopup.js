@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Paper from '@mui/material/paper';
+import Paper from '@mui/material/Paper';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import {Link} from 'react-router-dom'

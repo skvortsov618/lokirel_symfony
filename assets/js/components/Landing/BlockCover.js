@@ -1,5 +1,6 @@
 import React from "react";
 import  './../../../styles/index.scss'
+import bgMain from './../../../images/backgrounds/001.jpg'
 
 const BlockCover = () => {
 
@@ -10,9 +11,8 @@ const BlockCover = () => {
 
     return ( 
         <div className="blockCover" style={{
-            backgroundImage: `url(${image_src})`
+            backgroundImage: `url(${bgMain})`
         }}>
-            {/* <img className="blockCover__image" src={image_src} alt={image_alt} /> */}
             <div className="blockCover__titles">
                 <div className="blockCover__titles__header">{header}</div>
                 <h1 className="blockCover__titles__subheader">{ subheader }</h1>
