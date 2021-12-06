@@ -14,7 +14,7 @@ import SwiperCard from "./SwiperCard";
 
 const BlockCarousel = () => {
 
-    const carousel_title = "Спасенные нами растения";
+    const carousel_title = "Примеры наших работ";
 
     return ( 
         <div className="blockCarousel">

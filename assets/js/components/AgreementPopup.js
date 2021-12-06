@@ -15,18 +15,20 @@ const AgreementPopup = () => {
         setPop(false);
     }
     const message = "Наш сайт использует необходимые cookies и сторонние ресурсы для работы. Продолжая пользоваться сайтом вы автоматически соглашаетесь с "
-    const policyLink = <Link to="/privacypolicy" onClick={ClosePopup} style={{color: "lightskyblue"}}>политикой конфиденциальности</Link>;
+    const policyLink = <Link to="/privacypolicy" onClick={ClosePopup} style={{color: "#659f86"}}>политикой конфиденциальности</Link>;
 
     return (
         <Grow in={pop} sx={{
-            backgroundColor: "white", color:"black",
-            width: 600,
-            position: 'sticky', left: 30, bottom: 50,
+            backgroundColor: "rgb(37 51 43)",
+            color:"#fafafa",
+            width: 500,
+            position: 'sticky', left: 30, bottom: 30,
             zIndex: 10000,
-            padding: "20px",
-            borderRadius: "20px"}}>
+            padding: "40px 25px",
+            borderRadius: "10px",
+            lineHeight: '1.4rem'}}>
             <Paper elevation={2} >
-                <div style={{marginBottom: "10px"}}>{message}{policyLink}</div>
+                <div style={{marginBottom: "15px"}}>{message}{policyLink}</div>
                 <Button 
                     fullWidth
                     variant="contained"
