@@ -18,7 +18,7 @@ const Index = () => {
                 <Route path="/" element={<Landing />} />
                 <Route path="*" element={<Missing />} />
             </Routes>
-            {/*<AgreementPopup />*/}
+            <AgreementPopup />
         </Router>
     )
 }

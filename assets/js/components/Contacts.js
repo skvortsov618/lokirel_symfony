@@ -5,16 +5,13 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-const Contacts = () => {
+import bgMain from './../../images/backgrounds/001.jpg'
 
-    const image_src = "https://images7.alphacoders.com/451/451013.jpg";
-    const image_alt = "sdfsd";
-    const header    = "Contact us anytime";
-    const subheader = "8-800-key-to-happiness";
+const Contacts = () => {
 
     return ( 
         <div className="blockCover" style={{
-            backgroundImage: `url(${image_src})`
+            backgroundImage: `url(${bgMain})`
         }}>
             <Helmet>
                 <meta charSet="utf-8" />
@@ -22,7 +19,7 @@ const Contacts = () => {
                 <meta name="description" content="Контактные данные компании Lokirel" />
             </Helmet>
             {/* <img className="blockCover__image" src={image_src} alt={image_alt} /> */}
-            <div style={{backgroundImage: `url(${image_src})`, width:"100%", height: "100vh", textAlign:"center"}}>
+            <div style={{backgroundImage: `url(${bgMain})`, width:"100%", height: "100vh", textAlign:"center"}}>
             <Paper elevation={2} sx={{minWidth: "300px", width:"60%", height:"100%", padding:"20px", backgroundColor: "rgba(255,255,255,0.3)", margin:"auto"}}>
                 <h1>Как с нами связаться:</h1>
                 <div>Наш телефон: <a href="tel:+79689533446">8 (968) 953-34-46</a></div>

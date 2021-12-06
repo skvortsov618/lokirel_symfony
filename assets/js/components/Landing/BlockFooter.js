@@ -8,18 +8,15 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
+import bgMain from './../../../images/backgrounds/001.jpg'
+
 const BlockFooter = () => {
-	
-	const image_src = "https://images7.alphacoders.com/451/451013.jpg";
-	const image_alt = "sdfsd";
-	const header = "WELCOME";
-	const subheader = "To the bottom! Yeeey you did it!";
 	
 	return (
 			<div className='blockCardPicture' style={{
-				backgroundImage: `url(${image_src})`
+				backgroundImage: `url(${bgMain})`
 			}}>
-			<Container sx={{color: 'black', paddingTop:'30vh', display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center'}} className="blockCover" >
+			<Container sx={{ paddingTop:'30vh', display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center'}} className="blockCover" >
 				
 				<Grid container columns={{xs: 4, md: 12}} spacing={2} sx={{width:'80%', flex: '1 1 auto'}} >
                         <Grid item md={6}>

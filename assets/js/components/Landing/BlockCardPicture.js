@@ -8,9 +8,9 @@ const BlockCardPicture = () => {
 	// const background_src = "https://images7.alphacoders.com/451/451013.jpg";
 	const picture_src = "https://images7.alphacoders.com/451/451013.jpg";
 	const picture_alt = "sdfsd";
-	const infoSupertitle = "Озеленение и профессиональный уход за растениями";
+	const infoSupertitle = "Фитодизайн. Озеленение интерьеров и пространств";
 	const infoTitle = "Lokirel";
-	const infoText = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore ad et animi expedita magnam voluptatibus. Tenetur, temporibus nisi voluptates fugit consequatur voluptate ad dolore inventore blanditiis error, nesciunt hic architecto!";
+	const infoText = "Lokirel это команда специалистов с большим опытом работы с растениями. У нас общие цели, стремления и философия. Мы - профессионалы своего дела и знаем, как работать с растениями, делать качественный фитодизайн и создавать впечатляющие зеленые пространства.";
 	
 	return (
 		

@@ -21,11 +21,11 @@ const SwiperCard = (props) => {
                 image={image_src}
                 alt="green iguana"
                 />
-                <CardContent sx={{position: "absolute", bottom: 0, top: "60%", width: "100%", backgroundColor: "rgba(0,0,0,0.5)"}}>
+                {/* <CardContent sx={{position: "absolute", bottom: 0, top: "60%", width: "100%", backgroundColor: "rgba(0,0,0,0.5)"}}>
                     <Typography variant="body2" color="text.secondary">
                         {text}
                     </Typography>
-                </CardContent>
+                </CardContent> */}
             <CardActionArea>
             </CardActionArea>
         </Card>

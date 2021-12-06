@@ -9,24 +9,24 @@ const BlockFourSteps = () => {
 
     return ( 
         <div className="blockFourSteps">
-            <h2 className="blockFourSteps__title">Florafication like one two and you are in the forest</h2>
-            <h3 className="blockFourSteps__subtitle">This is how we do our job</h3>
+            <h2 className="blockFourSteps__title">Озеленение пространств с Lokirel - просто, быстро и эффективно</h2>
+            <h3 className="blockFourSteps__subtitle">Этапы разработки и внедрения проекта</h3>
             <div className="blockFourSteps__steps steps">
                 <div className="steps__step">
                     <div className="steps__step__number">1</div>
-                    <div className="steps__step__text">Озеленение и профессиональный уход за растениями</div>
+                    <div className="steps__step__text">Разработка проекта озеленения, подбор растений</div>
                 </div>
                 <div className="steps__step">
-                    <div className="steps__step__number">1</div>
-                    <div className="steps__step__text">Озеленение и профессиональный уход за растениями</div>
+                    <div className="steps__step__number">2</div>
+                    <div className="steps__step__text">Согласование проекта и договора с Заказчиком</div>
                 </div>
                 <div className="steps__step">
-                    <div className="steps__step__number">1</div>
-                    <div className="steps__step__text">Озеленение и профессиональный уход за растениями</div>
+                    <div className="steps__step__number">3</div>
+                    <div className="steps__step__text">Реализация проекта</div>
                 </div>
                 <div className="steps__step">
-                    <div className="steps__step__number">1</div>
-                    <div className="steps__step__text">Озеленение и профессиональный уход за растениями</div>
+                    <div className="steps__step__number">4</div>
+                    <div className="steps__step__text">Сервисное гарантийное обслуживание растений</div>
                 </div>
             </div>
         </div>

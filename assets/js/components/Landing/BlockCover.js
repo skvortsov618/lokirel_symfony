@@ -7,7 +7,7 @@ const BlockCover = () => {
     const image_src = "https://images7.alphacoders.com/451/451013.jpg";
     const image_alt = "sdfsd";
     const header    = "Lokirel";
-    const subheader = "Озеленение и профессиональный уход за растениями";
+    const subheader = "Профессиональное озеленение и квалифицированная забота о растениях";
 
     return ( 
         <div className="blockCover" style={{

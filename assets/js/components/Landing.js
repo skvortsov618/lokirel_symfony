@@ -42,7 +42,7 @@ const Landing = () => {
 				<SwiperSlide><BlockCarousel/></SwiperSlide>
 				<SwiperSlide><BlockFourSteps/></SwiperSlide>
 				 {/*<SwiperSlide><BlockVideo/></SwiperSlide>*/}
-				<SwiperSlide><BlockVTabs /></SwiperSlide>
+				{/* <SwiperSlide><BlockVTabs /></SwiperSlide> */}
 				<SwiperSlide><BlockFeedback /></SwiperSlide>
 				<SwiperSlide><BlockFooter /></SwiperSlide>
 			</Swiper>

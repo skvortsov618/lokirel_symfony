@@ -9,6 +9,7 @@ import img05 from '../../../images/photos/carousel/05.jpg'
 import img06 from '../../../images/photos/carousel/06.jpg'
 
 import "swiper/scss"
+import "swiper/scss/navigation"
 import SwiperCard from "./SwiperCard";
 
 const BlockCarousel = () => {
