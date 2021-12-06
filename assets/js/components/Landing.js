@@ -34,7 +34,6 @@ const Landing = () => {
 					draggable: true
 				}}
 				direction={"vertical"}
-				onSlideChange={() => console.log('slide change')}
 				style={{height: "100vh"}}
 			>
 				<SwiperSlide><BlockCover /></SwiperSlide>

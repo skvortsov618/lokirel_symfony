@@ -1,12 +1,16 @@
 import React from 'react';
-import PlainCard from './PlainCard';
+import bgMain from './../../images/backgrounds/001.jpg'
 
 const Missing = () => {
     return (
-        <PlainCard
-            title="Такой страницы не существует на этом сайте. Ошибка 404"
-            text="Возможно она появится в будущем, но сейчас ее нет."    
-        />
+        <div className="blockCover" style={{
+            backgroundImage: `url(${bgMain})`
+        }}>
+            <div className="blockCover__titles">
+                <div className="blockCover__titles__header">404</div>
+                <div className="blockCover__titles__subheader">Такой страницы не существует, но она может появиться.</div>
+            </div>
+        </div>
     )
 }
 

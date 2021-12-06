@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
@@ -21,6 +21,7 @@ import Container from "@mui/material/Container";
 import Paper from '@mui/material/Paper';
 import bgFeedback from '../../../images/backgrounds/feedback.jpg'
 import * as url from "url";
+import { red } from "@mui/material/colors";
 
 const FeedbackWrapper = styled('div')({
     backgroundImage: `url(${bgFeedback})`,
@@ -43,17 +44,20 @@ const MyTextField = styled(TextField)(({theme})=> ({
 }))
 
 const BlockFeedback = () => {
+
+    const [sent,setSent] = useState(false);
+    const [feederror, setFeederror] = useState(false);
     
     return (
             <FeedbackWrapper className="bgFeedback">
                 <Container maxWidth='sm' >
                     <MyPaper elevation={10}>
-                    <Formik
+                    {!sent && <Formik
                             initialValues={{
-                                fname: "dfghdgfh",
-                                femail: "dfg@fdg.gfh",
+                                fname: "",
+                                femail: "",
                                 ftel: "",
-                                ftext: "Добрый день! Хотим озелениение, удобнее всего будет созвониться по указанному номеру завтра или послезавтра",
+                                ftext: "",
                                 fpolicycheck: false,
                                 fmailing: false
                             }}
@@ -77,86 +81,79 @@ const BlockFeedback = () => {
                                 const xhttp = new XMLHttpRequest();
                                 xhttp.onreadystatechange = function() {
                                     if (this.readyState == 4) {
-                                        if (this.status == 200) {
-                                            console.log(JSON.parse(this.response))
-                                            setSubmitting(false)
+                                        if (this.status == 200 && this.getResponseHeader("Content-Type") == "aplication/json") {
+                                            setSent(true);
                                         } else {
                                             setSubmitting(false)
-                                            console.log("ERROR HAPPENED PLS TRY AGAIN OR CONTACT US DIRECTLY")
+                                            setFeederror(true)
                                         }
                                     }
                                 };
-                                // xhttp.onload = function(data) {
-                                //     console.log(data);
-                                // }
                                 xhttp.open("POST", "/feedback", true);
-                                // xhttp.open("POST", "https://dimmyraves.ru", true);
                                 xhttp.setRequestHeader("Content-type", "application/json");
                                 xhttp.send(JSON.stringify(values));
-                                // setTimeout(()=>{
-                                //     setSubmitting(false);
-                                //     alert(JSON.stringify(values, null, 2));
-                                // }, 5000)
                             }}
                     >
                         {({values, submitForm, isSubmitting, errors}) => (
-                                <Form>
-                                    <Field
-                                            component={MyTextField}
-                                            name="fname"
-                                            label="Как к вам можно обращаться?"
-                                            type="text"
-                                            variant="outlined"
-                                            fullWidth
-                                    />
-                                    <Field
-                                            component={MyTextField}
-                                            name="femail"
-                                            label="Пожалуйста, укажите вашу электронную почту"
-                                            type="email"
-                                            variant="outlined"
-                                            fullWidth
-                                    />
-                                    <Field
-                                            component={MyTextField}
-                                            name="ftel"
-                                            label="Вы также можете указать номер телефона"
-                                            type="tel"
-                                            variant="outlined"
-                                            fullWidth
-                                    />
-                                    <Field
-                                            component={MyTextField}
-                                            label="Дополнительное сообщение"
-                                            name="ftext"
-                                            variant="outlined"
-                                            fullWidth
-                                    />
-                                    <Field
-                                            component={CheckboxWithLabel}
-                                            type="checkbox"
-                                            name="fmailing"
-                                            Label={{ label: "Хочу иногда получать предложения и новости"}}
-                                    /><br />
-                                    <Field
-                                            component={CheckboxWithLabel}
-                                            type="checkbox"
-                                            name="fpolicycheck"
-                                            Label={{ label: "Согласен с политикой конфиденциальности"}}
-                                    />
-                                    {isSubmitting && <LinearProgress />}
-                                    <Button
-                                            fullWidth
-                                            variant="contained"
-                                            sx={{ mt: 3, pt:2, pb:2, borderRadius: 2}}
-                                            disabled={isSubmitting}
-                                            onClick={submitForm}
-                                    >
-                                        Отправить
-                                    </Button>
-                                </Form>
+                            <Form>
+                                {feederror && <div style={{color:"red", margin: "5px"}}>При отправке произошла ошибка. Повторите попытку или свяжитесь с нами любым способом указанным в контактах.</div>}
+                                <Field
+                                        component={MyTextField}
+                                        name="fname"
+                                        label="Как к вам можно обращаться?"
+                                        type="text"
+                                        variant="outlined"
+                                        fullWidth
+                                />
+                                <Field
+                                        component={MyTextField}
+                                        name="femail"
+                                        label="Пожалуйста, укажите вашу электронную почту"
+                                        type="email"
+                                        variant="outlined"
+                                        fullWidth
+                                />
+                                <Field
+                                        component={MyTextField}
+                                        name="ftel"
+                                        label="Вы также можете указать номер телефона"
+                                        type="tel"
+                                        variant="outlined"
+                                        fullWidth
+                                />
+                                <Field
+                                        component={MyTextField}
+                                        label="Дополнительное сообщение"
+                                        name="ftext"
+                                        variant="outlined"
+                                        fullWidth
+                                />
+                                <Field
+                                        component={CheckboxWithLabel}
+                                        type="checkbox"
+                                        name="fmailing"
+                                        Label={{ label: "Хочу иногда получать предложения и новости"}}
+                                /><br />
+                                <Field
+                                        component={CheckboxWithLabel}
+                                        type="checkbox"
+                                        name="fpolicycheck"
+                                        Label={{ label: "Согласен с политикой конфиденциальности"}}
+                                />
+                                {isSubmitting && <LinearProgress />}
+                                <Button
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ mt: 3, pt:2, pb:2, borderRadius: 2}}
+                                        disabled={isSubmitting}
+                                        onClick={submitForm}
+                                >
+                                    Отправить
+                                </Button>
+                            </Form>
                         )}
-                    </Formik>
+                    </Formik>}
+                    {sent && <div>Мы обязательно свяжемся с вами!</div>}
                 </MyPaper>
                 </Container>
             </FeedbackWrapper>
