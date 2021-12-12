@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class LandingController extends AbstractController
 {
@@ -17,7 +19,7 @@ class LandingController extends AbstractController
      * @Route("/feedback", name="app_feedback")
      * @return JsonResponse
      */
-    public function feedback(Request $request, ValidatorInterface $validator) {
+    public function feedback(Request $request, ValidatorInterface $validator, MailerInterface $mailer) {
 
         $data=json_decode($request->getContent(), true);
 
@@ -49,6 +51,13 @@ class LandingController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($feedback);
         $entityManager->flush();
+
+        $email=(new EMail())
+            ->from('green@lokirel.ru')
+            ->to('4952201992@mail.ru')
+            ->subject("Lokirel.ru форма обратной связи на главной странице")
+            ->text("| ИМЯ: ".$fname." | ПОЧТА: ".$femail." | ТЕЛЕФОН: ".$ftel." | СООБЩЕНИЕ: ".$ftext." |");
+        $mailer->send($email);
 
         $response = new JsonResponse();
         $response->setStatusCode(200);
