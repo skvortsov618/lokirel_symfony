@@ -73,7 +73,6 @@ class LandingController extends AbstractController
      * @return Response
      */
     public function landing() {
-        dump($this->getDoctrine()->getManager());
         return $this->render('landing.html.twig', [
             'random_value' => 3
         ]);
