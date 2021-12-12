@@ -37,7 +37,7 @@ const BlockCarousel = () => {
                           slidesPerView: 2,
                         },
                         // when window width is >= 768px
-                        1000: {
+                        1025: {
                           slidesPerView: 3,
                         },
                       }}

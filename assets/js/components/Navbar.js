@@ -3,8 +3,9 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import {Link} from 'react-router-dom'
 import bgHeader from '../../images/backgrounds/header.jpg'
-import {colors} from "@mui/material";
+import {colors, Tabs} from "@mui/material";
 import Container from "@mui/material/Container";
+import {myTheme} from "./Landing/CustomComponents/customTheme";
 
 const Navbar = () => {
 	
@@ -29,10 +30,13 @@ const Navbar = () => {
 				boxShadow: '0px 0px 10px rgba(0,0,0,0.6)',
 				
 			}}>
-				<Container maxWidth='lg' sx={{display: 'flex', justifyContent: 'space-between', minWidth: '90vw'}}>
-					<Link to="/"><Tab label="LOKIREL"/></Link>
-					<Link to="/contacts"><Tab label="Контакты"/></Link>
-				
+				<Container maxWidth='lg' sx={{display: 'flex', justifyContent: 'space-between', minWidth: '90vw',}}>
+					<Link to="/">
+						<Tab label="LOKIREL"/>
+					</Link>
+					<Link to="/contacts">
+						<Tab label="Контакты"/>
+					</Link>
 				</Container>
 			</Box>
 	);
