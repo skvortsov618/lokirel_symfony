@@ -39,11 +39,15 @@ const BlockFooter = () => {
 						justifyContent:'center'
 					}}}>
 					<Grid item sm={12} md={6}>
-						<Typography variant={"body1"} component='div'><a>Контакты</a></Typography>
+						<Typography variant={"body1"} component='div'><Link to="/contacts">Контакты</Link></Typography>
 						<Typography sx={{paddingTop:'0.3rem',
 							[myTheme.breakpoints.down('md')]: {
 								paddingBottom:'0.3rem'
-							},}} variant={"body1"} component='div'><a>Политика конфиденциальности</a></Typography>
+							},}} variant={"body1"} component='div'><Link to="/privacypolicy">Политика конфиденциальности</Link>
+						</Typography>
+						<Divider flexItem={true} variant='middle' sx={{color: myTheme.palette.primary.contrastText, 
+							[myTheme.breakpoints.up('md')]: {display: "none"}, marginBottom: "10px", marginTop: "10px"
+						}}/>
 					</Grid>
 					<Grid item sm={12} md={6} sx={{textAlign:'right',
 						[myTheme.breakpoints.down('md')]: {
@@ -51,8 +55,8 @@ const BlockFooter = () => {
 							alignSelf:'center'
 						}}}>
 						<Typography component='div'>Позвоните нам: <a href="tel:+79689533446" style={{color:myTheme.palette.primary.contrastText,
-							textDecoration: 'none'}}> 8 (968)
-							953-34-46</a></Typography>
+							textDecoration: 'none'}}> 8 (968) 953-34-46</a>
+						</Typography>
 						<Typography component='div'>Напишите нам: <IconWrapper href="https://wa.me/79689533446"><WhatsAppIcon/></IconWrapper></Typography>
 						<Typography component='div'>Lokirel в соцсетях:
 							<IconWrapper href="https://business.facebook.com/biolokirel"><FacebookIcon/></IconWrapper>

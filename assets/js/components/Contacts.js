@@ -24,8 +24,8 @@ const Contacts = () => {
         <MyBGBox sx={{background: `url(${bg_image})`}}>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Lokirel - контакты</title>
-                <meta name="description" content="Контактные данные компании Lokirel" />
+                <title>Lokirel - Контакты. Озеленение и уход за растениями.</title>
+                <meta name="description" content="Озеленение и уход за растениями в Москве и Московской области." />
             </Helmet>
             <Container sx={{
                 height:'100vh',

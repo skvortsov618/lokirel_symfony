@@ -27,8 +27,8 @@ const Landing = () => {
         }}>
 				<Helmet>
 					<meta charSet="utf-8"/>
-					<title>Lokirel - ПрофессионЗальный уход и озеленение</title>
-					<meta name="description" content="Озеленение офисов и услуги фитоняни"/>
+					<title>Lokirel - Профессиональное озеленение и квалифицированная забота о растениях</title>
+					<meta name="description" content="Озеленение офисов, предприятий. Профессиональный уход за растениями, спасение. Услуги фитоняни."/>
 				</Helmet>
 				<Swiper
 					modules={[Mousewheel, Scrollbar]}

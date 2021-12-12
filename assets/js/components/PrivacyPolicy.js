@@ -1,4 +1,5 @@
 import React from "react";
+import {Helmet} from "react-helmet";
 import bg from '../../images/backgrounds/01.jpg'
 import {Container, Typography} from "@mui/material";
 import {BGPrivacy} from "./Landing/CustomComponents/LastPageComponents";
@@ -44,12 +45,18 @@ const PrivacyPolicy = () => {
 Если у вас есть какие-либо вопросы о политике конфиденциальности, использованию сайта или иным вопросам, связанным с сайтом, свяжитесь с нами: +7 (968) 953-34-46`
 
     return (
-            <BGPrivacy sx={{backgroundImage: `url(${bg})`}}>
-                <Container maxWidth='xl'>
-                    <Typography variant='h4' component='h4' textAlign='center'>{header}</Typography>
-                    <Typography sx={{fontSize:'0.9rem', lineHeight:'1.2rem', paddingTop:'1rem', color:'#dadada'}} variant='div' component='div'>{subheader}</Typography>
-                </Container>
-            </BGPrivacy>
+        <BGPrivacy sx={{backgroundImage: `url(${bg})`}}>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Lokirel - Политика конфиденциальности</title>
+                <meta name="description" content="Озеленение офисов, предприятий. Профессиональный уход за растениями, спасение. Услуги фитоняни. Обучение и мастерклассы." />
+            </Helmet>
+            <Container maxWidth='xl'>
+                <Typography variant='h4' component='h4' textAlign='center'>{header}</Typography>
+                {/* <Typography sx={{fontSize:'0.9rem', lineHeight:'1.2rem', paddingTop:'1rem', color:'#dadada'}} variant='div' component='div'>{subheader}</Typography> */}
+                <div>{subheader}</div>
+            </Container>
+        </BGPrivacy>
     );
 }
 

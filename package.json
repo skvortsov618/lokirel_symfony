@@ -35,8 +35,7 @@
         "react-helmet": "^6.1.0",
         "react-router-dom": "^6.0.2",
         "styled-components": "^5.3.3",
-        "swiper": "^7.3.1",
-        "yarn": "^1.22.17"
+        "swiper": "^7.3.1"
     },
     "browserslist": [
         "> 2%"

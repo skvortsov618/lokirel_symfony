@@ -55,8 +55,9 @@ class LandingController extends AbstractController
         $email=(new EMail())
             ->from('green@lokirel.ru')
             ->to('4952201992@mail.ru')
-            ->subject("Lokirel.ru форма обратной связи на главной странице")
-            ->text("| ИМЯ: ".$fname." | ПОЧТА: ".$femail." | ТЕЛЕФОН: ".$ftel." | СООБЩЕНИЕ: ".$ftext." |");
+            ->addTo('mredcyan@gmail.com')
+            ->subject("lokirel.ru landing feedback")
+            ->html("<p>| ИМЯ: ".$fname." | ПОЧТА: ".$femail." | ТЕЛЕФОН: ".$ftel." | СООБЩЕНИЕ: ".$ftext." |</p>");
         $mailer->send($email);
 
         $response = new JsonResponse();
