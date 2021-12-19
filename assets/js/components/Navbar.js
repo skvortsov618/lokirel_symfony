@@ -2,15 +2,29 @@ import React from "react";
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import {Link} from 'react-router-dom'
+import Button from '@mui/material/Button';
+import { Field, Form, Formik } from "formik";
 import bgHeader from '../../images/backgrounds/header.jpg'
 import {colors, Tabs} from "@mui/material";
 import Container from "@mui/material/Container";
 import {myTheme} from "./Landing/CustomComponents/customTheme";
+import {MyTextField} from "./Landing/CustomComponents/FifthPageComponents";
+import { Autocomplete,
+	TextField,
+	Select,
+	Switch,
+	ToggleButtonGroup,
+	CheckboxWithLabel,
+	Checkbox} from "formik-mui";
 
 const Navbar = () => {
 	
-	const [value, setValue] = React.useState(0);
-	
+	const [showForm, setShowForm] = React.useState(false);
+
+	const handleLoginClick = () => {
+		setShowForm(true)
+	}
+
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
@@ -37,6 +51,66 @@ const Navbar = () => {
 					<Link to="/contacts">
 						<Tab label="Контакты"/>
 					</Link>
+					<Button onClick={handleLoginClick} variant="contained" >LOGIN</Button>
+					{showForm && <Box sx={{backgroundColor: "white", zIndex:6000}}>
+						<Formik
+							initialValues={{
+								lEmail: "",
+								lPassword: ""
+							}}
+							validate={(values)=>{
+								const errors={}
+								return errors
+							}}
+							onSubmit={(values) => {
+								const xhttp = new XMLHttpRequest();
+								xhttp.onreadystatechange = function() {
+									if (this.readyState == 4) {
+										if (this.status == 200 && this.getResponseHeader("Content-Type") == "aplication/json") {
+											console.log("submitted");
+											// setSent(true);
+										} else {
+											console.log("request error");
+											// setSubmitting(false)
+											// setFeedError(true)
+										}
+									}
+								};
+								xhttp.open("POST", "/login", true);
+								xhttp.setRequestHeader("Content-type", "application/json");
+								xhttp.send(JSON.stringify(values));
+							}}
+						>
+							{({submitForm}) => (
+							<Form>
+								<Field
+									component={TextField}
+									name="lemail"
+									label="Ваш email"
+									type="email"
+									variant="outlined"
+									style={{width:'100%'}}
+								/>
+								<Field
+									component={TextField}
+									name="lpassword"
+									label="Ваш email"
+									type="email"
+									variant="outlined"
+									style={{width:'100%'}}
+								/>
+								<Button
+									fullWidth
+									variant="contained"
+									sx={{ mt: 2, pt:2, pb:2, borderRadius: 2}}
+									onClick={submitForm}
+								>
+									Отправить
+								</Button>
+							</Form>
+							)}
+						</Formik>
+					</Box>}
 				</Container>
 			</Box>
 	);
