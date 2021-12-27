@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Security;
-
+use App\Entity\User;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -21,24 +22,38 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
-        $email = $request->request->get("email");
-        $password = $request->request->get("password");
+        $data=json_decode($request->getContent(), true);
+        dump($data);
+        $email = $data['lemail'];
+        $password = $data['lpassword'];
         return new Passport(
             new UserBadge($email),
-            new CustomCredentials(function($credentioals, User $user) {
-                dd($credentioals, $user);
+            new CustomCredentials(function($credentials, User $user) {
+                return $credentials === "11";
             }, $password)
         );
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // TODO: Implement onAuthenticationSuccess() method.
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $data = "success";
+        $response->headers->set("Content-Type", "aplication/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+        $response->setContent((json_encode($data)));
+        return $response;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        // TODO: Implement onAuthenticationFailure() method.
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $data = "failure";
+        $response->headers->set("Content-Type", "aplication/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+        $response->setContent((json_encode($data)));
+        return $response;
     }
 
 //    public function start(Request $request, AuthenticationException $authException = null): Response

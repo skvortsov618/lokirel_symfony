@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import AgreementPopup from './components/AgreementPopup';
 import {myTheme} from "./components/Landing/CustomComponents/customTheme";
 import {ThemeProvider} from "@mui/material";
+import AdminLogin from "./components/AdminLogin";
 
 const Index = () => {
     return (
@@ -18,6 +19,7 @@ const Index = () => {
                 <Routes>
                     <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
                     <Route path="/contacts" element={<Contacts/>}/>
+                    <Route path="/admin" element={<AdminLogin/>}/>
                     <Route path="/" element={<Landing/>}/>
                     <Route path="*" element={<Missing/>}/>
                 </Routes>

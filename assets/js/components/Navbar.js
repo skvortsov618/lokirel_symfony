@@ -51,12 +51,12 @@ const Navbar = () => {
 					<Link to="/contacts">
 						<Tab label="Контакты"/>
 					</Link>
-					<Button onClick={handleLoginClick} variant="contained" >LOGIN</Button>
+					{/* <Button onClick={handleLoginClick} variant="contained" >LOGIN</Button>
 					{showForm && <Box sx={{backgroundColor: "white", zIndex:6000}}>
 						<Formik
 							initialValues={{
-								lEmail: "",
-								lPassword: ""
+								lemail: "",
+								lpassword: ""
 							}}
 							validate={(values)=>{
 								const errors={}
@@ -68,6 +68,7 @@ const Navbar = () => {
 									if (this.readyState == 4) {
 										if (this.status == 200 && this.getResponseHeader("Content-Type") == "aplication/json") {
 											console.log("submitted");
+											console.log(this.responseText);
 											// setSent(true);
 										} else {
 											console.log("request error");
@@ -110,7 +111,7 @@ const Navbar = () => {
 							</Form>
 							)}
 						</Formik>
-					</Box>}
+					</Box>} */}
 				</Container>
 			</Box>
 	);

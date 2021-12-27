@@ -41,8 +41,6 @@ const BlockCarousel = () => {
                           slidesPerView: 3,
                         },
                       }}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
                     
                     style= {{
                         //не знаю как сдесь написать стиль не инлайн
