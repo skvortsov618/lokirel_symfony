@@ -2,6 +2,7 @@
 
 namespace App\Security;
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +40,9 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $data = "success";
+        $cookie = new Cookie('token', 'ada', 999999999999, '/', 'localhost', false, false);
+//        $cookie = Cookie::fromString('token=ada; expires=Tue, 28-Dec-2021 20:00:00 +0100; path=/; domain=lokirel.ru');
+        $response->headers->setCookie($cookie);
         $response->headers->set("Content-Type", "aplication/json");
 //        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($data)));
