@@ -19,6 +19,13 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
+    public function findByIds($ids)
+    {
+        $qb = $this->createQueryBuilder('images');
+        $qb->where('images.id IN(:ids)')->setParameter('ids', array_values($ids));
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Image[] Returns an array of Image objects
     //  */

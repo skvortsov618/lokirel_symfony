@@ -22,6 +22,11 @@ class Image
      */
     private $link;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $alt_text;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class Image
     public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getAltText(): ?string
+    {
+        return $this->alt_text;
+    }
+
+    public function setAltText(?string $alt_text): self
+    {
+        $this->alt_text = $alt_text;
 
         return $this;
     }

@@ -19,6 +19,19 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findByParams($params=[])
+    {
+        $defaultPerPage = 12;
+        $perPage = $params['perPage'] ?? $defaultPerPage;
+        $offset = isset($params['perPage']) & isset($params['page']) ? ( $params['perPage'] * ($params['page']-1) ) : 0;
+        $tags = $params['tags'] ?? [];
+        $categories = $params['categories'] ?? [];
+
+        $qb = $this->createQueryBuilder('posts')->orderBy('posts.id', 'ASC')->setMaxResults($perPage)->setFirstResult($offset);
+
+        return $qb->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */

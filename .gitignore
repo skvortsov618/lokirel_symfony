@@ -24,3 +24,7 @@ yarn-error.log
 .idea/workspace.xml
 migrations/Version20211223161030.php
 migrations/Version20211222095023.php
+migrations/Version20220125113514.php
+migrations/Version20220125114050.php
+migrations/Version20220125134712.php
+migrations/Version20220125161005.php
