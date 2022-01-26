@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use App\Helpers\MiscHelper;
 
 class LandingController extends AbstractController
 {
@@ -22,15 +23,14 @@ class LandingController extends AbstractController
      * @return JsonResponse
      */
     public function feedback(Request $request, ValidatorInterface $validator, MailerInterface $mailer) {
-
+        // vars
         $data=json_decode($request->getContent(), true);
-
-        $fname=htmlentities(substr(trim($data["fname"]), 0, 50), ENT_QUOTES, "UTF-8");
-        $femail=htmlentities(substr(trim($data["femail"]), 0, 100), ENT_QUOTES, "UTF-8");
-        $ftel=htmlentities(substr(trim($data["ftel"]), 0, 50), ENT_QUOTES, "UTF-8");
-        $ftext=htmlentities(substr(trim($data["ftext"]), 0, 250), ENT_QUOTES, "UTF-8");
-        $fmailing = htmlentities( $data["fmailing"], ENT_QUOTES, "UTF-8" ) == "1" ? true : false;
-
+        $fname=isset($data['fname']) ? MiscHelper::esc_and_cut($data['fname'], 50) : '';
+        $femail=isset($data['fname']) ? MiscHelper::esc_and_cut($data['femail'], 100) : '';
+        $ftel=isset($data['fname']) ? MiscHelper::esc_and_cut($data['ftel'], 50) : 0;
+        $ftext=isset($data['fname']) ? MiscHelper::esc_and_cut($data['ftext'], 250) : '';
+        $fmailing = isset($data['fmailing']) && htmlentities( $data["fmailing"], ENT_QUOTES, "UTF-8" ) == "1" ? true : false;
+        // build feedback
         $feedback = new Feedback();
         $feedback->setCallname($fname);
         $feedback->setEmail($femail);
@@ -40,31 +40,32 @@ class LandingController extends AbstractController
         $feedback->setSource("lokirel.ru main page");
         $feedback->setTheme("lokirel.ru Форма обратной связи");
         $feedback->setSendtime(new \DateTimeImmutable("now", new \DateTimeZone("+0300")));
-
+        // validate
         $errors = $validator->validate($feedback);
         if (count($errors) > 0 ) {
             $response = new JsonResponse();
             $response->setStatusCode(500);
-            $response->headers->set("Content-Type", "aplication/json");
-            $response->setContent((json_encode($fmailing)));
+            $response->headers->set("Content-Type", "application/json");
+            $response->setContent((json_encode("invalid data")));
             return $response;
         }
-
+        // query
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($feedback);
         $entityManager->flush();
-
+        // email
         $email=(new EMail())
             ->from('green@lokirel.ru')
+//            ->to('mredcyan@gmail.com')
             ->to('4952201992@mail.ru')
             ->addTo('mredcyan@gmail.com')
             ->subject("lokirel.ru landing feedback")
             ->html("<p>| ИМЯ: ".$fname." | ПОЧТА: ".$femail." | ТЕЛЕФОН: ".$ftel." | СООБЩЕНИЕ: ".$ftext." |</p>");
         $mailer->send($email);
-
+        // output
         $response = new JsonResponse();
         $response->setStatusCode(200);
-        $response->headers->set("Content-Type", "aplication/json");
+        $response->headers->set("Content-Type", "application/json");
 //        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($fname)));
         return $response;
@@ -75,25 +76,30 @@ class LandingController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher)
     {
+        // vars
         $data=json_decode($request->getContent(), true);
-
-        $email = $data['email'];
-        $plainPassword = $data['password'];
-
-        $entityManager = $this->getDoctrine()->getManager();
+        $email = isset($data['email']) ? MiscHelper::esc_and_cut($data['email'], 100) : '';
+        $plainPassword = isset($data['password']) ? MiscHelper::esc_and_cut($data['password'], 20) : '';
+        // validate
+        if (!$email || !$plainPassword) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent((json_encode("invalid data")));
+            return $response;
+        }
+        // build user
         $user = new User();
         $user->setEmail($email);
         $user->setPlainPassword($plainPassword);
-        $user->setPassword(
-            $userPasswordHasher->hashPassword(
-                $user,
-                $plainPassword
-            )
-        );
+        $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
         $user->setRoles(['ROLE_ADMIN']);
+        // query
+        $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-
+        // output
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");

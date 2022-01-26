@@ -26,7 +26,7 @@ class PostBlock
 
     /**
      * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="body")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false, name="post_id", referencedColumnName="id")
      */
     private $post;
 
@@ -40,16 +40,22 @@ class PostBlock
      */
     private $images;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $priority;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
     }
 
-    public static function newWithParams($post, $type, $text, $images) {
+    public static function newWithParams($post, $type, $text, $images, $priority) {
         $new = new PostBlock();
         $new->setPost($post);
         $new->setType($type);
         $new->setText($text);
+        $new->setPriority($priority);
         foreach ($images as $image) {
             $new->addImage($image);
         }
@@ -62,6 +68,7 @@ class PostBlock
             'id'=>$this->getId(),
             'type'=>$this->getType(),
             'text'=>$this->getText(),
+            'priority'=>$this->getPriority(),
             'images'=>$this->getImagesValues()
         ];
     }
@@ -141,6 +148,18 @@ class PostBlock
     public function removeImage(Image $image): self
     {
         $this->images->removeElement($image);
+
+        return $this;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?int $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }

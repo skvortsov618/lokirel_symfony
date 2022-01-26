@@ -79,9 +79,11 @@ class Post
         $new->setHidden($hidden);
         $new->setCover($cover);
         $new->setCreated('300000');
+        $priority = 0;
         foreach ($blocks as $block) {
-            $_block = PostBlock::newWithParams($new, $block['type'], $block['text'], $block['images']);
+            $_block = PostBlock::newWithParams($new, $block['type'], $block['text'], $block['images'], $priority);
             $new->addBody($_block);
+            $priority++;
         }
         return $new;
     }

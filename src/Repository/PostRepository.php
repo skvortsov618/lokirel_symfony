@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Entity\PostBlock;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,16 +20,41 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function findByParams($params=[])
+    public function findByParams($data=[])
     {
+//        var_dump($data);
+        // vars
         $defaultPerPage = 12;
-        $perPage = $params['perPage'] ?? $defaultPerPage;
-        $offset = isset($params['perPage']) & isset($params['page']) ? ( $params['perPage'] * ($params['page']-1) ) : 0;
-        $tags = $params['tags'] ?? [];
-        $categories = $params['categories'] ?? [];
-
-        $qb = $this->createQueryBuilder('posts')->orderBy('posts.id', 'ASC')->setMaxResults($perPage)->setFirstResult($offset);
-
+        $tags = isset($data['tags']) ? $data['tags'] : [];
+        $categories = isset($data['categories']) ? $data['categories'] : [];
+        $page = isset($data['page']) ? $data['page'] : 0;
+        $perPage = isset($data['perPage']) ? $data['perPage'] : $defaultPerPage;
+        $search= isset($data['search']) ? $data['search'] : '';
+        $offset = $page && $perPage ? ($perPage*($page-1)) : 0;
+        // query
+        $qb = $this->createQueryBuilder('posts')
+            ->andWhere("posts.hidden='0'")
+            ->orderBy('posts.id', 'ASC')
+            ->setMaxResults($perPage)
+            ->setFirstResult($offset);
+        if ($search) {
+            $search = '%'.$search.'%';
+            $qb->leftJoin("posts.body", "blocks")
+                ->andWhere("blocks.text LIKE :search")
+                ->orWhere('posts.title LIKE :search')
+                ->setParameter('search', $search);
+        }
+        if ($tags) {
+            $qb->leftJoin("posts.tags", "tags")
+                ->andWhere("tags.slug IN(:tags)")
+                ->setParameter("tags", array_values($tags));
+        }
+        if ($categories) {
+            $qb->leftJoin("posts.categories", "categories")
+                ->andWhere("categories.slug IN(:categories)")
+                ->setParameter("categories", array_values($categories));
+        }
+        // output
         return $qb->getQuery()->getResult();
     }
 
