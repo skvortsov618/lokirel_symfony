@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Image;
 use App\Entity\PostBlock;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,6 +71,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/create", name="app_create_post")
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
     public function addPost(Request $request, ManagerRegistry $registry): Response
@@ -119,6 +121,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/delete", name="app_delete_post")
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
     public function deletePost(Request $request, ManagerRegistry $registry): Response
@@ -144,6 +147,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/update", name="app_update_post")
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
     public function updatePost(Request $request, ManagerRegistry $registry): Response

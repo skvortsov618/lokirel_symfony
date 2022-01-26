@@ -10,7 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
- * @UniqueEntity("slug")
  */
 class Post
 {
@@ -27,7 +26,7 @@ class Post
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=250)
+     * @ORM\Column(type="string", length=250, unique=true)
      */
     private $slug;
 

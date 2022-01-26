@@ -3,11 +3,13 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Feedback;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -69,6 +71,38 @@ class LandingController extends AbstractController
     }
 
     /**
+     * @Route("/register", name="app_register")
+     */
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $data=json_decode($request->getContent(), true);
+
+        $email = $data['email'];
+        $plainPassword = $data['password'];
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = new User();
+        $user->setEmail($email);
+        $user->setPlainPassword($plainPassword);
+        $user->setPassword(
+            $userPasswordHasher->hashPassword(
+                $user,
+                $plainPassword
+            )
+        );
+        $user->setRoles(['ROLE_ADMIN']);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+        $response->setContent((json_encode("success")));
+        return $response;
+    }
+
+    /**
      * @Route("/{reactRouting}", name="app_homepage", defaults={"reactRouting": null} )
      * @return Response
      */
@@ -77,4 +111,6 @@ class LandingController extends AbstractController
             'random_value' => 3
         ]);
     }
+
+
 }

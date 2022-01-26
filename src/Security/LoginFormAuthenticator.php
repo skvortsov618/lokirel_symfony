@@ -9,8 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
+use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 
@@ -24,14 +26,13 @@ class LoginFormAuthenticator extends AbstractAuthenticator
     public function authenticate(Request $request): PassportInterface
     {
         $data=json_decode($request->getContent(), true);
-        dump($data);
         $email = $data['lemail'];
         $password = $data['lpassword'];
         return new Passport(
             new UserBadge($email),
-            new CustomCredentials(function($credentials, User $user) {
-                return $credentials === "11";
-            }, $password)
+            new PasswordCredentials($password)
+//            https://symfonycasts.com/screencast/symfony-security/csrf-token   actually just another POST variable
+//            new CsrfTokenBadge('some_csrf_token_string_from_front',$request->request->get('_csrf_token'))
         );
     }
 
@@ -40,10 +41,10 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $data = "success";
-        $cookie = new Cookie('token', 'ada', 999999999999, '/', 'localhost', false, false);
+//        $cookie = new Cookie('token', 'ada', 9999999999, '/', 'localhost', false, false);
 //        $cookie = Cookie::fromString('token=ada; expires=Tue, 28-Dec-2021 20:00:00 +0100; path=/; domain=lokirel.ru');
-        $response->headers->setCookie($cookie);
-        $response->headers->set("Content-Type", "aplication/json");
+//        $response->headers->setCookie($cookie);
+        $response->headers->set("Content-Type", "application/json");
 //        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($data)));
         return $response;
@@ -54,7 +55,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $data = "failure";
-        $response->headers->set("Content-Type", "aplication/json");
+        $response->headers->set("Content-Type", "application/json");
 //        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($data)));
         return $response;

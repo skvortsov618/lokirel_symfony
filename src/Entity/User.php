@@ -109,11 +109,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->plainPassword = null;
     }
 
-    public function setPassword(string $password, UserPasswordHasherInterface  $passwordHasher): self
+    public function setPassword(string $_password): self
     {
-        $password = $passwordHasher->hashPassword($this->plainPassword);
-        $this->eraseCredentials();
-        $this->password = $password;
+        $this->password = $_password;
         return $this;
     }
 
@@ -125,5 +123,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    public function getPlainPassword() {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
     }
 }
