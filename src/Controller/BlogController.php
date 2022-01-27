@@ -82,7 +82,7 @@ class BlogController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $slug = isset($data['slug']) ? MiscHelper::esc_and_cut($data['slug']) : '';
+        $slug = isset($data['slug']) ? MiscHelper::esc_and_cut($data['slug'], 250) : '';
         // validate
         if (!$slug) {
             $response = new JsonResponse();
