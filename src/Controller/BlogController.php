@@ -36,14 +36,12 @@ class BlogController extends AbstractController
             $tags[$i] = MiscHelper::esc_and_cut($tags[$i], 50);
             if (!$tags[$i]) unset($tags[$i]);
         }
-        if (!$tags) $errors[] = 'invalid tags';
         $tags = array_values($tags);
         for ($i = 0; $i < count($categories); $i++) {
             $categories[$i] = MiscHelper::esc_and_cut($categories[$i], 50);
             if (!$categories[$i]) unset($categories[$i]);
         }
         $categories = array_values($categories);
-        if (!$categories) $errors[] = 'invalid categories';
         if ($errors) {
             $response = new JsonResponse();
             $response->setStatusCode(500);
@@ -213,6 +211,7 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/update", name="app_update_post")
+     * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
     public function updatePost(Request $request, ManagerRegistry $registry): Response
