@@ -27,6 +27,14 @@ class Image
      */
     private $alt_text;
 
+    public function getValues() {
+        return [
+            'id'=>$this->getId(),
+            'link'=>$this->getLink(),
+            'alt_text'=>$this->getAltText()
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;

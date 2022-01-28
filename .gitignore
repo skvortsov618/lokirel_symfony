@@ -30,3 +30,5 @@ migrations/Version20220125134712.php
 migrations/Version20220125161005.php
 migrations/Version20220126004826.php
 migrations/Version20220126213723.php
+/public/uploads/
+/migrations/

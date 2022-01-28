@@ -22,7 +22,6 @@ class PostRepository extends ServiceEntityRepository
 
     public function findByParams($data=[])
     {
-//        var_dump($data);
         // vars
         $defaultPerPage = 12;
         $maxPerPage = 50;
