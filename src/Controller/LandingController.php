@@ -3,8 +3,10 @@
 
 namespace App\Controller;
 
+use App\Entity\ContentPair;
 use App\Entity\User;
 use App\Entity\Feedback;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,7 +114,10 @@ class LandingController extends AbstractController
      * @Route("/{reactRouting}", name="app_homepage", defaults={"reactRouting": null} )
      * @return Response
      */
-    public function landing() {
+    public function landing(ManagerRegistry $registry) {
+        $manager=$registry->getManager();
+        $pairs = $manager->getRepository(ContentPair::class)->findBy(['pack'=>'landing']);
+        var_dump($pairs);
         return $this->render('landing.html.twig', [
             'random_value' => 3
         ]);

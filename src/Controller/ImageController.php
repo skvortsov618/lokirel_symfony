@@ -28,10 +28,29 @@ class ImageController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
+        $ids = isset($data['ids']) && is_array($data['ids']) ? $data['ids'] : [];
         // validation
+        for ($i=0; $i<count($ids); $i++) {
+            if (!is_numeric($ids[$i])) {
+                unset($ids[$i]);
+            }
+        }
+        $ids = array_values($ids);
         // query
         $manager = $registry->getManager();
-        $images = $manager->getRepository(Image::class)->findAll();
+        if ($ids) {
+            $images = $manager->getRepository(Image::class)->findByIds($ids);
+        } else {
+            $images = $manager->getRepository(Image::class)->findAll();
+        }
+        if (!$images) {
+            $response = new JsonResponse();
+            $response->setStatusCode(200);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent((json_encode(['error'=>'no images found'])));
+            return $response;
+        }
         // output
         $results = [];
         foreach ($images as $image) {

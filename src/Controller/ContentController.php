@@ -1,0 +1,203 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\ContentPair;
+use App\Helpers\MiscHelper;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+class ContentController extends AbstractController
+{
+    /**
+     * @Route("/content", name="app_content")
+     * @return Response
+     */
+    public function content(): Response
+    {
+        return $this->render('content/index.html.twig', [
+            'controller_name' => 'ContentController',
+        ]);
+    }
+
+    /**
+     * @Route("/content/pair", name="app_content_pair")
+     * @return Response
+     */
+    public function contentpair(Request $request, ManagerRegistry $registry): Response
+    {
+        // vars
+        $data=json_decode($request->getContent(), true);
+        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
+        // validation
+        if (!$key) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent((json_encode(['error'=>'invalid key'])));
+            return $response;
+        }
+        // query
+        $manager=$registry->getManager();
+        $pair = $manager->getRepository(ContentPair::class)->findOneBy(['placement_key'=>$key]);
+        if (!$pair) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent(json_encode(['error'=>'pair not found']));
+            return $response;
+        }
+        // output
+        $result = $pair->getFullValues();
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+        $response->setContent((json_encode($result)));
+        return $response;
+    }
+
+    /**
+     * @Route("/content/create", name="app_content_create")
+     * @return Response
+     */
+    public function createpair(Request $request, ManagerRegistry $registry): Response
+    {
+        // vars
+        $data=json_decode($request->getContent(), true);
+        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
+        $content = isset($data['content']) ? MiscHelper::esc_and_cut($data['content']) : '';
+        $pack = isset($data['pack']) ? MiscHelper::esc_and_cut($data['pack']) : '';
+        // validation
+        $errors = [];
+        if (!$key) $errors[] = 'invalid key';
+        if ($errors) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent(json_encode($errors));
+            return $response;
+        }
+        // query
+        $pair = new ContentPair();
+        $pair->setPlacementKey($key);
+        $pair->setContent($content);
+        $pair->setPack($pack);
+        $manager=$registry->getManager();
+        $manager->persist($pair);
+        $manager->flush();
+        // output
+        $result = $pair->getFullValues();
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+        $response->setContent((json_encode($result)));
+        return $response;
+    }
+
+    /**
+     * @Route("/content/update", name="app_content_update")
+     * @return Response
+     */
+    public function updatepair(Request $request, ManagerRegistry $registry): Response
+    {
+        // vars
+        $data=json_decode($request->getContent(), true);
+        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
+        if (isset($data['content'])) $content = MiscHelper::esc_and_cut($data['content']);
+        if (isset($data['pack'])) $content = MiscHelper::esc_and_cut($data['pack']);
+        // validation
+        $errors = [];
+        if (!$key) $errors[] = 'invalid key';
+        if (!isset($content) && !isset($pair)) $errors[] = 'nothing to update';
+        if ($errors) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent(json_encode($errors));
+            return $response;
+        }
+        // query
+        $manager=$registry->getManager();
+        $pair = $manager->getRepository(ContentPair::class)->findOneBy(['placement_key'=>$key]);
+        if (!$pair) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent((json_encode(['error'=>'pair not found'])));
+            return $response;
+        }
+        // update
+        if (isset($content)) $pair->setContent($content);
+        if (isset($pack)) $pair->setPack($pack);
+        $manager->persist($pair);
+        $manager->flush();
+        // output
+        $result = $pair->getFullValues();
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+        $response->setContent((json_encode($result)));
+        return $response;
+    }
+
+    /**
+     * @Route("/content/delete", name="app_content_delete")
+     * @return Response
+     */
+    public function deletepair(Request $request, ManagerRegistry $registry): Response
+    {
+        // vars
+        $data=json_decode($request->getContent(), true);
+        $id = isset($data['id']) && is_numeric($data[id])? $data['id'] : 0;
+        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
+        // validation
+        if (!$id && !$key) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent((json_encode(['error'=>'invalid id'])));
+            return $response;
+        }
+        // query
+        $manager=$registry->getManager();
+        if ($id) {
+            $pair = $manager->getRepository(ContentPair::class)->findOneBy(['id'=>$id]);
+        } else if ($key) {
+            $pair = $manager->getRepository(ContentPair::class)->findOneBy(['placement_key'=>$key]);
+        } else {
+            $pair = null;
+        }
+        if (!$pair) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+            $response->setContent((json_encode(['error'=>'pair not found'])));
+            return $response;
+        }
+        // delete
+        $manager->remove($pair);
+        $manager->flush();
+        // output
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+//        $response->headers->set("Access-Control-Allow-Origin", "*");
+        $response->setContent((json_encode(['result'=>'success'])));
+        return $response;
+    }
+
+}

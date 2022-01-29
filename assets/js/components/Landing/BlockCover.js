@@ -5,7 +5,7 @@ import {MyBGBox, MyH1, MyH2, TypographyWrapper} from "./CustomComponents/FirstPa
 
 const BlockCover = () => {
 
-    const header    = "Lokirel";
+    const header    = "LOKIREL";
     const subheader = "Профессиональное озеленение и квалифицированная забота о растениях";
 
     return (

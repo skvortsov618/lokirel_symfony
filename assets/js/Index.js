@@ -9,10 +9,13 @@ import Navbar from './components/Navbar';
 import AgreementPopup from './components/AgreementPopup';
 import {myTheme} from "./components/Landing/CustomComponents/customTheme";
 import {ThemeProvider} from "@mui/material";
-import AdminLogin from "./components/AdminLogin";
-import Blog from "./components/Blog";
+import AdminLogin from "./components/Admin/AdminLogin";
+import Blog from "./components/Blog/Blog";
+import AdminPanel from './components/Admin/AdminPanel';
+import getCookie from './helpers/Helpers';
 
 const Index = () => {
+    
     return (
         <Router>
             <ThemeProvider theme={myTheme}>
@@ -22,6 +25,7 @@ const Index = () => {
                     <Route path="/blog" element={<Blog/>}/>
                     <Route path="/contacts" element={<Contacts/>}/>
                     <Route path="/vhod" element={<AdminLogin/>}/>
+                    <Route path="/admin" element={<AdminPanel/>}/>
                     <Route path="/" element={<Landing/>}/>
                     <Route path="*" element={<Missing/>}/>
                 </Routes>

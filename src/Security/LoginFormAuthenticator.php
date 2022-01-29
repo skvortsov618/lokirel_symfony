@@ -41,9 +41,15 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $data = "success";
-//        $cookie = new Cookie('token', 'ada', 9999999999, '/', 'localhost', false, false);
+        $cookie = new Cookie('lokirel_auth',
+            'admin',
+            0,
+            '/',
+            'localhost',
+            true,
+            false);
 //        $cookie = Cookie::fromString('token=ada; expires=Tue, 28-Dec-2021 20:00:00 +0100; path=/; domain=lokirel.ru');
-//        $response->headers->setCookie($cookie);
+        $response->headers->setCookie($cookie);
         $response->headers->set("Content-Type", "application/json");
 //        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($data)));
