@@ -12,7 +12,8 @@ import {ThemeProvider} from "@mui/material";
 import AdminLogin from "./components/Admin/AdminLogin";
 import Blog from "./components/Blog/Blog";
 import AdminPanel from './components/Admin/AdminPanel';
-import getCookie from './helpers/Helpers';
+import getRole from './helpers/Helpers';
+import BlogPost from './components/Blog/BlogPost';
 
 const Index = () => {
     
@@ -21,12 +22,13 @@ const Index = () => {
             <ThemeProvider theme={myTheme}>
                 <Navbar/>
                 <Routes>
-                    <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
-                    <Route path="/blog" element={<Blog/>}/>
-                    <Route path="/contacts" element={<Contacts/>}/>
-                    <Route path="/vhod" element={<AdminLogin/>}/>
-                    <Route path="/admin" element={<AdminPanel/>}/>
-                    <Route path="/" element={<Landing/>}/>
+                    <Route exact path="/privacypolicy" element={<PrivacyPolicy/>}/>
+                    <Route path="blog/:post_slug" element={<BlogPost/>}/>
+                    <Route exact path="/blog" element={<Blog/>}/>
+                    <Route exact path="/contacts" element={<Contacts/>}/>
+                    <Route exact path="/vhod" element={<AdminLogin/>}/>
+                    {getRole() == 'admin' && <Route path="/admin" element={<AdminPanel/>}/>}
+                    <Route exact path="/" element={<Landing/>}/>
                     <Route path="*" element={<Missing/>}/>
                 </Routes>
                 <AgreementPopup/>

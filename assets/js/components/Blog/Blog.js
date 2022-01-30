@@ -1,48 +1,32 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import useFetch from "../useFetch";
+import {Link} from 'react-router-dom'
 
 const Blog = () => {
-    const [posts, setPosts] = useState([])
-
-    useEffect(() => {
-        setPosts([
-            {
-                id:"1",
-                category:"base",
-                tags:"flower",
-                title:"Sam",
-                text:"Some text",
-                picture:"url"
-            },
-            {
-                id:"2",
-                category:"base",
-                tags:"flower",
-                title:"Sam2",
-                text:"Some text2",
-                picture:"url2"
-            },
-            {
-                id:"3",
-                category:"base",
-                tags:"flower",
-                title:"Sam3",
-                text:"Some text3",
-                picture:"url3"
-            }
-        ])
-    }, [])
+    const {data:posts, isPending, error} = useFetch('https://localhost:8000/blog', '')
 
     return (
         <div>
-            {posts.map((post, index)=>(
-                <div style={{color: "black"}} key={post.id}>
-                    <div>{post.title}</div>
-                    <div>{post.text}</div>
-                    <div>{post.picture}</div>
-                </div>
+            {isPending && <div>Loading...</div>}
+            {error && <div>{error}</div>}
+            {posts && posts.map((post, index)=>(
+                <Link to={`/blog/${post.slug}`}>
+                    <div style={{color: "black"}} key={post.id} >
+                        <div>{post.slug}</div>
+                        <div>{post.title}</div>
+                        {post.body.map((block, index)=>(
+                            <div key={block.id}>
+                                <div>{block.text}</div>
+                            </div>
+                        ))}
+                    </div>
+                </Link>
             ))}
+            {!posts && !isPending && (
+                <div>
+                    Posts not found
+                </div>
+            )}
         </div>
     )
 

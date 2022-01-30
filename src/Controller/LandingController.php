@@ -21,7 +21,7 @@ use App\Helpers\MiscHelper;
 class LandingController extends AbstractController
 {
     /**
-     * @Route("/feedback", name="app_feedback")
+     * @Route("/feedback", name="app_feedback", methods={"POST"})
      * @return JsonResponse
      */
     public function feedback(Request $request, ValidatorInterface $validator, MailerInterface $mailer) {
@@ -74,7 +74,7 @@ class LandingController extends AbstractController
     }
 
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/register", name="app_register", methods={"POST"})
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher)
     {
@@ -111,13 +111,12 @@ class LandingController extends AbstractController
     }
 
     /**
-     * @Route("/{reactRouting}", name="app_homepage", defaults={"reactRouting": null} )
+     * @Route("/{reactRouting}", name="app_homepage", defaults={"reactRouting": null}, requirements={"reactRouting"=".+"})
      * @return Response
      */
     public function landing(ManagerRegistry $registry) {
         $manager=$registry->getManager();
         $pairs = $manager->getRepository(ContentPair::class)->findBy(['pack'=>'landing']);
-        var_dump($pairs);
         return $this->render('landing.html.twig', [
             'random_value' => 3
         ]);

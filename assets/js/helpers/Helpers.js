@@ -14,4 +14,8 @@ function getCookie(cname) {
     return "";
 }
 
-export default getCookie;
+function getRole() {
+    return getCookie('lokirel_auth')
+}
+
+export default getRole;

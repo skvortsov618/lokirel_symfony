@@ -18,7 +18,7 @@ class BlogController extends AbstractController
 {
 
     /**
-     * @Route("/blog", name="app_blog")
+     * @Route("/blog", name="app_blog", methods={"POST"})
      * @return JsonResponse
      */
     public function getPosts(Request $request, ManagerRegistry $registry): Response
@@ -73,7 +73,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/post", name="app_get_post")
+     * @Route("/blog/post", name="app_get_post", methods={"POST"})
      * @return JsonResponse
      */
     public function getPost(Request $request, ManagerRegistry $registry): Response
@@ -104,7 +104,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/create", name="app_create_post")
+     * @Route("/blog/create", name="app_create_post", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
@@ -177,7 +177,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/delete", name="app_delete_post")
+     * @Route("/blog/delete", name="app_delete_post", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
@@ -210,7 +210,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/update", name="app_update_post")
+     * @Route("/blog/update", name="app_update_post", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */

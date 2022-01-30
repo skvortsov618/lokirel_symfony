@@ -48,6 +48,9 @@ const Navbar = () => {
 					<Link to="/">
 						<Tab label="LOKIREL"/>
 					</Link>
+					<Link to="/blog">
+						<Tab label="Блог"/>
+					</Link>
 					<Link to="/contacts">
 						<Tab label="Контакты"/>
 					</Link>
