@@ -12,7 +12,7 @@ import {ThemeProvider} from "@mui/material";
 import AdminLogin from "./components/Admin/AdminLogin";
 import Blog from "./components/Blog/Blog";
 import AdminPanel from './components/Admin/AdminPanel';
-import getRole from './helpers/Helpers';
+import {getRole} from './helpers/Helpers';
 import BlogPost from './components/Blog/BlogPost';
 
 const Index = () => {

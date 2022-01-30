@@ -1,4 +1,4 @@
-function getCookie(cname) {
+export function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -14,8 +14,6 @@ function getCookie(cname) {
     return "";
 }
 
-function getRole() {
+export function getRole() {
     return getCookie('lokirel_auth')
 }
-
-export default getRole;

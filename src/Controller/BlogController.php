@@ -185,7 +185,7 @@ class BlogController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $post_id = isset($data['post_id']) && is_numeric('post_id') ? $data['post_id'] : 0;
+        $post_id = isset($data['post_id']) && is_numeric(data['post_id']) ? $data['post_id'] : 0;
         // validate
         if (!$post_id) {
             $response = new JsonResponse();
