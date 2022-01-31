@@ -40,7 +40,6 @@ class PostRepository extends ServiceEntityRepository
             ->setMaxResults($perPage)
             ->setFirstResult($offset);
         if ($search) {
-            var_dump($search);
             $search = '%'.$search.'%';
             $qb->leftJoin("posts.body", "blocks")
                 ->andWhere("blocks.text LIKE :search")
@@ -48,13 +47,11 @@ class PostRepository extends ServiceEntityRepository
                 ->setParameter('search', $search);
         }
         if ($tags) {
-            var_dump($tags);
             $qb->leftJoin("posts.tags", "tags")
                 ->andWhere("tags.slug IN(:tags)")
                 ->setParameter("tags", array_values($tags));
         }
         if ($categories) {
-            var_dump($categories);
             $qb->leftJoin("posts.categories", "categories")
                 ->andWhere("categories.slug IN(:categories)")
                 ->setParameter("categories", array_values($categories));

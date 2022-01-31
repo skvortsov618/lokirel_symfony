@@ -27,6 +27,15 @@ class Tag
      */
     private $slug;
 
+    public function getFullValues()
+    {
+        return [
+            'id'=>$this->getId(),
+            'tag_name'=>$this->getTagName(),
+            'slug'=>$this->getSlug()
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;

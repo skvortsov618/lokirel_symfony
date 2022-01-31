@@ -68,7 +68,6 @@ class LandingController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($fname)));
         return $response;
     }
@@ -87,7 +86,6 @@ class LandingController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode("invalid data")));
             return $response;
         }
@@ -105,7 +103,6 @@ class LandingController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode("success")));
         return $response;
     }

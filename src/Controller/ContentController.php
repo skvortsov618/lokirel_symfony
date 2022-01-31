@@ -38,7 +38,6 @@ class ContentController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'invalid key'])));
             return $response;
         }
@@ -49,7 +48,6 @@ class ContentController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent(json_encode(['error'=>'pair not found']));
             return $response;
         }
@@ -58,13 +56,12 @@ class ContentController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($result)));
         return $response;
     }
 
     /**
-     * @Route("/content/create", name="app_content_create")
+     * @Route("/admin/content/create", name="app_content_create")
      * @return Response
      */
     public function createpair(Request $request, ManagerRegistry $registry): Response
@@ -81,7 +78,6 @@ class ContentController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent(json_encode($errors));
             return $response;
         }
@@ -98,13 +94,12 @@ class ContentController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($result)));
         return $response;
     }
 
     /**
-     * @Route("/content/update", name="app_content_update")
+     * @Route("/admin/content/update", name="app_content_update")
      * @return Response
      */
     public function updatepair(Request $request, ManagerRegistry $registry): Response
@@ -122,7 +117,6 @@ class ContentController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent(json_encode($errors));
             return $response;
         }
@@ -133,7 +127,6 @@ class ContentController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'pair not found'])));
             return $response;
         }
@@ -147,13 +140,12 @@ class ContentController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($result)));
         return $response;
     }
 
     /**
-     * @Route("/content/delete", name="app_content_delete")
+     * @Route("/admin/content/delete", name="app_content_delete")
      * @return Response
      */
     public function deletepair(Request $request, ManagerRegistry $registry): Response
@@ -167,7 +159,6 @@ class ContentController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'invalid id'])));
             return $response;
         }
@@ -184,7 +175,6 @@ class ContentController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'pair not found'])));
             return $response;
         }
@@ -195,7 +185,6 @@ class ContentController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode(['result'=>'success'])));
         return $response;
     }

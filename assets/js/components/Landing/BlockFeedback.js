@@ -75,7 +75,7 @@ const BlockFeedback = () => {
                             const xhttp = new XMLHttpRequest();
                             xhttp.onreadystatechange = function() {
                                 if (this.readyState == 4) {
-                                    if (this.status == 200 && this.getResponseHeader("Content-Type") == "aplication/json") {
+                                    if (this.status == 200 && this.getResponseHeader("Content-Type") == "application/json") {
                                         setSent(true);
                                     } else {
                                         setSubmitting(false)

@@ -27,6 +27,15 @@ class Category
      */
     private $slug;
 
+    public function getFullValues()
+    {
+        return [
+            'id'=>$this->getId(),
+            'category_name'=>$this->getCategoryName(),
+            'slug'=>$this->getSlug()
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;

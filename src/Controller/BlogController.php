@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Entity\ContentPair;
 use App\Entity\Image;
 use App\Entity\PostBlock;
+use App\Entity\Tag;
 use App\Helpers\MiscHelper;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -16,9 +19,48 @@ use App\Entity\Post;
 
 class BlogController extends AbstractController
 {
-
     /**
      * @Route("/blog", name="app_blog", methods={"POST"})
+     * @return JsonResponse
+     */
+    public function getBlogPage(Request $request, ManagerRegistry $registry): Response
+    {
+        // vars
+        $data=json_decode($request->getContent(), true);
+        $perPage = isset($data['perPage']) && is_numeric($data['perPage']) ? $data['perPage'] : 0;
+        // query
+        $manager = $registry->getManager();
+        // get posts
+        $posts = $manager->getRepository(Post::class)->findByParams([
+            'page'=>1,
+            'perPage'=>$perPage,
+        ]);
+        // get tags
+        $tags = $manager->getRepository(Tag::class)->findAll();
+        // get categories
+        $categories = $manager->getRepository(Category::class)->findAll();
+        // get pairs
+        $content = $manager->getRepository(ContentPair::class)->findBy(['pack'=>'blog']);
+        // output
+        $results = [];
+        foreach ($posts as $post) {
+            $results['posts'][] = $post->getFullValues();
+        }
+        foreach ($tags as $tag) {
+            $results['tags'][] = $tag->getFullValues();
+        }
+        foreach ($categories as $category) {
+            $results['categories'][] = $category->getFullValues();
+        }
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent((json_encode($results)));
+        return $response;
+    }
+
+    /**
+     * @Route("/blog/posts", name="app_blog_posts", methods={"POST"})
      * @return JsonResponse
      */
     public function getPosts(Request $request, ManagerRegistry $registry): Response
@@ -46,7 +88,6 @@ class BlogController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode($errors)));
             return $response;
         }
@@ -67,7 +108,6 @@ class BlogController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($results)));
         return $response;
     }
@@ -86,7 +126,6 @@ class BlogController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode("invalid data")));
             return $response;
         }
@@ -104,7 +143,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/create", name="app_create_post", methods={"POST"})
+     * @Route("/admin/blog/create", name="app_create_post", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
@@ -138,7 +177,6 @@ class BlogController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode($errors)));
             return $response;
         }
@@ -171,13 +209,12 @@ class BlogController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($result)));
         return $response;
     }
 
     /**
-     * @Route("/blog/delete", name="app_delete_post", methods={"POST"})
+     * @Route("/admin/blog/delete", name="app_delete_post", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
@@ -204,13 +241,12 @@ class BlogController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode(["post deleted"])));
         return $response;
     }
 
     /**
-     * @Route("/blog/update", name="app_update_post", methods={"POST"})
+     * @Route("/admin/blog/update", name="app_update_post", methods={"POST"})
      * @IsGranted("ROLE_ADMIN")
      * @return JsonResponse
      */
@@ -244,7 +280,6 @@ class BlogController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode($errors)));
             return $response;
         }
@@ -255,7 +290,6 @@ class BlogController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode(["post not found"])));
             return $response;
         }
@@ -335,7 +369,6 @@ class BlogController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode(["post updated"])));
         return $response;
     }

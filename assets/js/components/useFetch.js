@@ -15,10 +15,11 @@ const useFetch = (url,req_json) => {
             },
             body: JSON.stringify(req_json)
         })
-        .then(res=> {
-            if(!res.ok) {
+        .then(async (res)=> {
+            if(!res.ok ?? res.status != 200) {
                throw Error('could not fetch') 
             }
+            
             return res.json()
         })
         .then((data)=>{

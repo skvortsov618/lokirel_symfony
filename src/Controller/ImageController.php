@@ -47,7 +47,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(200);
             $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'no images found'])));
             return $response;
         }
@@ -59,13 +58,12 @@ class ImageController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($results)));
         return $response;
     }
 
     /**
-     * @Route("/images/image", name="app_images_image")
+     * @Route("/admin/images/image", name="app_images_image")
      * @return JsonResponse
      */
     public function getimage(Request $request, ManagerRegistry $registry): Response
@@ -78,7 +76,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-            //$response->headers->set("Acces-Control-Allow-Origin", "*");
             $response->setContent((json_encode(["error"=>"invalid id"])));
             return $response;
         }
@@ -90,13 +87,12 @@ class ImageController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($result)));
         return $response;
     }
 
     /**
-     * @Route("/images/create", name="app_images_create")
+     * @Route("/admin/images/create", name="app_images_create")
      * @return JsonResponse
      */
     public function createImage(Request $request, ManagerRegistry $registry, SluggerInterface $slugger, KernelInterface $appKernel): Response
@@ -113,7 +109,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-            //$response->headers->set("Acces-Control-Allow-Origin", "*");
             $response->setContent((json_encode($errors)));
             return $response;
         }
@@ -142,13 +137,12 @@ class ImageController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($result)));
         return $response;
     }
 
     /**
-     * @Route("/images/update", name="app_images_update")
+     * @Route("/admin/images/update", name="app_images_update")
      * @return JsonResponse
      */
     public function updateImage(Request $request, ManagerRegistry $registry): Response
@@ -162,7 +156,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-            //$response->headers->set("Acces-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'invalid id'])));
             return $response;
         }
@@ -174,7 +167,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-            //$response->headers->set("Acces-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'image not found'])));
             return $response;
         }
@@ -187,13 +179,12 @@ class ImageController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode(['result'=>'success'])));
         return $response;
     }
 
     /**
-     * @Route("/images/delete", name="app_images_delete")
+     * @Route("/admin/images/delete", name="app_images_delete")
      * @return JsonResponse
      */
     public function deleteImage(Request $request, ManagerRegistry $registry, KernelInterface $appKernel): Response
@@ -207,7 +198,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-            //$response->headers->set("Acces-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'invalid id'])));
             return $response;
         }
@@ -219,7 +209,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-            //$response->headers->set("Acces-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'image not found'])));
             return $response;
         }
@@ -233,7 +222,6 @@ class ImageController extends AbstractController
                 $response = new JsonResponse();
                 $response->setStatusCode(500);
                 $response->headers->set("Content-Type", "application/json");
-                //$response->headers->set("Acces-Control-Allow-Origin", "*");
                 $response->setContent((json_encode(['error'=>'file was not deleted'])));
                 return $response;
             }
@@ -241,7 +229,6 @@ class ImageController extends AbstractController
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
-            //$response->headers->set("Acces-Control-Allow-Origin", "*");
             $response->setContent((json_encode(['error'=>'file not found'])));
             return $response;
         }
@@ -252,7 +239,6 @@ class ImageController extends AbstractController
         $response = new JsonResponse();
         $response->setStatusCode(500);
         $response->headers->set("Content-Type", "application/json");
-        //$response->headers->set("Acces-Control-Allow-Origin", "*");
         $response->setContent((json_encode(['result'=>'success'])));
         return $response;
     }
