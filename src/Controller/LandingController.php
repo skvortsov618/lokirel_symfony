@@ -72,6 +72,25 @@ class LandingController extends AbstractController
         return $response;
     }
 
+
+    /**
+     * @Route("/admin/feedback", name="app_admin_feedback", methods={"POST"})
+     */
+    public function showFeedback(Request $request, UserPasswordHasherInterface $userPasswordHasher, ManagerRegistry $registry)
+    {
+        $manager = $registry->getManager();
+        $feedback = $manager->getRepository(Feedback::class)->findAll();
+        $results = [];
+        foreach ($feedback as $feed) {
+            $results[] = $feed->getFullValues();
+        }
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent(json_encode($results));
+        return $response;
+    }
+
     /**
      * @Route("/register", name="app_register", methods={"POST"})
      */

@@ -32,6 +32,11 @@ class ContentPair
      */
     private $pack;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function getFullValues() {
         return [
             'id'=>$this->getId(),
@@ -78,6 +83,18 @@ class ContentPair
     public function setPack(?string $pack): self
     {
         $this->pack = $pack;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

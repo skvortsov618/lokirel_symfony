@@ -66,6 +66,20 @@ class Feedback
      */
     private $sendtime;
 
+    public function getFullValues() {
+        return [
+            'id'=>$this->getId(),
+            'name'=>$this->getCallname(),
+            'email'=>$this->getEmail(),
+            'phone'=>$this->getPhone(),
+            'theme'=>$this->getTheme(),
+            'text'=>$this->getText(),
+            'source'=>$this->getSource(),
+            'mailing'=>$this->getMailing(),
+            'sendtime'=>$this->getSendtime()
+        ];
+    }
+
     public function getId(): ?int
     {
         return $this->id;

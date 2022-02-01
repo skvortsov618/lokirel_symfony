@@ -65,6 +65,66 @@ class Post
      */
     private $hidden;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $meta_robots;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_canonical;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_og_title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_twitter_title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_og_description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_twitter_description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_og_image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_twitter_image;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_og_url;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $meta_twitter_card;
+
     public function __construct()
     {
         $this->body = new ArrayCollection();
@@ -253,6 +313,150 @@ class Post
     public function setHidden(bool $hidden): self
     {
         $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    public function getMetaTitle(): ?string
+    {
+        return $this->meta_title;
+    }
+
+    public function setMetaTitle(?string $meta_title): self
+    {
+        $this->meta_title = $meta_title;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->meta_description;
+    }
+
+    public function setMetaDescription(?string $meta_description): self
+    {
+        $this->meta_description = $meta_description;
+
+        return $this;
+    }
+
+    public function getMetaRobots(): ?string
+    {
+        return $this->meta_robots;
+    }
+
+    public function setMetaRobots(string $meta_robots): self
+    {
+        $this->meta_robots = $meta_robots;
+
+        return $this;
+    }
+
+    public function getMetaCanonical(): ?string
+    {
+        return $this->meta_canonical;
+    }
+
+    public function setMetaCanonical(?string $meta_canonical): self
+    {
+        $this->meta_canonical = $meta_canonical;
+
+        return $this;
+    }
+
+    public function getMetaOgTitle(): ?string
+    {
+        return $this->meta_og_title;
+    }
+
+    public function setMetaOgTitle(?string $meta_og_title): self
+    {
+        $this->meta_og_title = $meta_og_title;
+
+        return $this;
+    }
+
+    public function getMetaTwitterTitle(): ?string
+    {
+        return $this->meta_twitter_title;
+    }
+
+    public function setMetaTwitterTitle(?string $meta_twitter_title): self
+    {
+        $this->meta_twitter_title = $meta_twitter_title;
+
+        return $this;
+    }
+
+    public function getMetaOgDescription(): ?string
+    {
+        return $this->meta_og_description;
+    }
+
+    public function setMetaOgDescription(?string $meta_og_description): self
+    {
+        $this->meta_og_description = $meta_og_description;
+
+        return $this;
+    }
+
+    public function getMetaTwitterDescription(): ?string
+    {
+        return $this->meta_twitter_description;
+    }
+
+    public function setMetaTwitterDescription(?string $meta_twitter_description): self
+    {
+        $this->meta_twitter_description = $meta_twitter_description;
+
+        return $this;
+    }
+
+    public function getMetaOgImage(): ?string
+    {
+        return $this->meta_og_image;
+    }
+
+    public function setMetaOgImage(?string $meta_og_image): self
+    {
+        $this->meta_og_image = $meta_og_image;
+
+        return $this;
+    }
+
+    public function getMetaTwitterImage(): ?string
+    {
+        return $this->meta_twitter_image;
+    }
+
+    public function setMetaTwitterImage(?string $meta_twitter_image): self
+    {
+        $this->meta_twitter_image = $meta_twitter_image;
+
+        return $this;
+    }
+
+    public function getMetaOgUrl(): ?string
+    {
+        return $this->meta_og_url;
+    }
+
+    public function setMetaOgUrl(?string $meta_og_url): self
+    {
+        $this->meta_og_url = $meta_og_url;
+
+        return $this;
+    }
+
+    public function getMetaTwitterCard(): ?string
+    {
+        return $this->meta_twitter_card;
+    }
+
+    public function setMetaTwitterCard(?string $meta_twitter_card): self
+    {
+        $this->meta_twitter_card = $meta_twitter_card;
 
         return $this;
     }
