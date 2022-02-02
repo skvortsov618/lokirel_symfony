@@ -27,6 +27,11 @@ class Image
      */
     private $alt_text;
 
+    /**
+     * @ORM\Column(type="bigint", nullable=true)
+     */
+    private $created;
+
     public function getValues() {
         return [
             'id'=>$this->getId(),
@@ -60,6 +65,18 @@ class Image
     public function setAltText(?string $alt_text): self
     {
         $this->alt_text = $alt_text;
+
+        return $this;
+    }
+
+    public function getCreated(): ?string
+    {
+        return $this->created;
+    }
+
+    public function setCreated(?string $created): self
+    {
+        $this->created = $created;
 
         return $this;
     }

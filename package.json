@@ -32,6 +32,7 @@
         "formik": "^2.2.9",
         "formik-mui": "^4.0.0-alpha.3",
         "formik-mui-lab": "^1.0.0-alpha.3",
+        "react-dropzone": "^11.5.3",
         "react-helmet": "^6.1.0",
         "react-router-dom": "^6.0.2",
         "styled-components": "^5.3.3",

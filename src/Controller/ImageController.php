@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints\Json;
 class ImageController extends AbstractController
 {
     /**
-     * @Route("/images", name="app_images")
+     * @Route("/images", name="app_images", methods={"POST"})
      * @return JsonResponse
      */
     public function getimages(Request $request, ManagerRegistry $registry): Response
@@ -63,7 +63,7 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/admin/images/image", name="app_images_image")
+     * @Route("/admin/images/image", name="app_images_image", methods={"POST"})
      * @return JsonResponse
      */
     public function getimage(Request $request, ManagerRegistry $registry): Response
@@ -92,7 +92,7 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/admin/images/create", name="app_images_create")
+     * @Route("/admin/images/create", name="app_images_create", methods={"POST"})
      * @return JsonResponse
      */
     public function createImage(Request $request, ManagerRegistry $registry, SluggerInterface $slugger, KernelInterface $appKernel): Response
@@ -132,7 +132,8 @@ class ImageController extends AbstractController
         // output
         $result = [
             'result'=>'success',
-            'id'=>$image->getId()
+            'id'=>$image->getId(),
+            'link'=>$image->getLink()
         ];
         $response = new JsonResponse();
         $response->setStatusCode(200);
@@ -142,7 +143,7 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/admin/images/update", name="app_images_update")
+     * @Route("/admin/images/update", name="app_images_update", methods={"POST"})
      * @return JsonResponse
      */
     public function updateImage(Request $request, ManagerRegistry $registry): Response
@@ -184,7 +185,7 @@ class ImageController extends AbstractController
     }
 
     /**
-     * @Route("/admin/images/delete", name="app_images_delete")
+     * @Route("/admin/images/delete", name="app_images_delete", methods={"POST"})
      * @return JsonResponse
      */
     public function deleteImage(Request $request, ManagerRegistry $registry, KernelInterface $appKernel): Response

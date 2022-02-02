@@ -16,6 +16,7 @@ import {getRole} from './helpers/Helpers';
 import BlogPost from './components/Blog/BlogPost';
 import AdminFeedback from './components/Admin/AdminFeedback';
 import BlockCarousel from './components/Landing/BlockCarousel';
+import AdminGallery from './components/Admin/AdminGallery';
 
 const Index = () => {
     
@@ -29,10 +30,9 @@ const Index = () => {
                     <Route exact path="/blog" element={<Blog/>}/>
                     <Route exact path="/contacts" element={<Contacts/>}/>
                     <Route exact path="/vhod" element={<AdminLogin/>}/>
-                    {/* {getRole() == 'admin' && <Route path="/admin" element={<AdminPanel/>}/>} */}
                     {getRole() == 'admin' && <Route path="/admin" element={<AdminPanel/>}>
                         <Route index element={<div>WELCOME ADMIN</div>}/>
-                        <Route path="/admin/gallery" element={<BlockCarousel/>} />
+                        <Route path="/admin/gallery" element={<AdminGallery/>} />
                         <Route path="/admin/feedback" element={<AdminFeedback />} />
                     </Route>}
                     <Route exact path="/" element={<Landing/>}/>

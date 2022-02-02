@@ -15,13 +15,28 @@ const AdminPanel = () => {
             <div>MENU</div>
             <ul>
                 <li>
-                <Link to="/admin">Статьи</Link>
+                <Link to="/admin">Приветствие!</Link>
+                </li>
+                <li>
+                <Link to="/admin/articles">Статьи</Link>
                 </li>
                 <li>
                 <Link to="/admin/gallery">Галерея</Link>
                 </li>
                 <li>
+                <Link to="/admin/landing">Первая страница</Link>
+                </li>
+                <li>
+                <Link to="/admin/blog">Блог</Link>
+                </li>
+                <li>
                 <Link to="/admin/feedback">Обратная связь</Link>
+                </li>
+                <li>
+                <Link to="/admin/users">Учетные данные</Link>
+                </li>
+                <li>
+                <Link to="/admin/cache">Кеширование</Link>
                 </li>
             </ul>
             <Outlet />
