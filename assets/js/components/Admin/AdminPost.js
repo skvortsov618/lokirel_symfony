@@ -9,6 +9,8 @@ const AdminPost = () => {
     const [currentBlock, setCurrentBlock] = useState(null)
     const [isPending, setIsPending] = useState(true)
     const [error, setError] = useState(null)
+    const [galleryOpen, setGalleryOpen] = useState([])
+    const [gallery, setGallery] = useState([])
 
     // const handleSlugInput = (e) => {
     //     setPost({...post, slug: e.target.value})
@@ -31,6 +33,7 @@ const AdminPost = () => {
         .then((data)=>{
             console.log(data)
             setPost(data)
+            setGalleryOpen(data.body.map(b=>false))
             setIsPending(false)
             setError(null)
         })
@@ -103,6 +106,36 @@ const AdminPost = () => {
         return -1
     }
 
+    const handleGallery = (e, block, index) => {
+        setGalleryOpen(galleryOpen.map((b, bindex)=> {
+            if (bindex === index && !b) return true
+            return false
+        }))
+        fetch('https://localhost:8000/images', {
+            method: "POST"
+        })
+        .then(async (res)=> {
+            if(!res.ok ?? res.status != 200) {
+               throw Error('could not fetch') 
+            }
+            return res.json()
+        })
+        .then((data)=>{
+            console.log(data)
+            setGallery(data)
+            setIsPending(false)
+            setError(null)
+        })
+        .catch(err => {
+            if (err.name === 'AbortError') {
+                console.log('fetch aborted')
+            } else {
+                setError(err.message)
+                setIsPending(false)
+            }
+        })
+    }
+
     return (
         <div style={{color: "black"}}>
             {isPending && <div>Awaiting</div>}
@@ -121,6 +154,12 @@ const AdminPost = () => {
                         onDrop={(e)=>dropHandler(e, block)}
                     >
                         <div>{block.text}</div>
+                        <Button onClick={(e, block)=>handleGallery(e,block, index)}>GALLERY</Button>
+                        {galleryOpen[index] && <div>
+                                {gallery && gallery.map((image,index)=>(
+                                    <img src={image.link} key={image.id} />
+                                ))}
+                            </div>}
                     </div>))}
             </div>}
             {error && <div>ТАКОГО ПОСТА НЕТ</div>}
