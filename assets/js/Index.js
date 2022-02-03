@@ -17,6 +17,8 @@ import BlogPost from './components/Blog/BlogPost';
 import AdminFeedback from './components/Admin/AdminFeedback';
 import BlockCarousel from './components/Landing/BlockCarousel';
 import AdminGallery from './components/Admin/AdminGallery';
+import AdminArticles from './components/Admin/AdminArticles';
+import AdminPost from './components/Admin/AdminPost';
 
 const Index = () => {
     
@@ -32,6 +34,8 @@ const Index = () => {
                     <Route exact path="/vhod" element={<AdminLogin/>}/>
                     {getRole() == 'admin' && <Route path="/admin" element={<AdminPanel/>}>
                         <Route index element={<div>WELCOME ADMIN</div>}/>
+                        <Route path="/admin/articles/:post_id" element={<AdminPost/>} />
+                        <Route path="/admin/articles" element={<AdminArticles/>} />
                         <Route path="/admin/gallery" element={<AdminGallery/>} />
                         <Route path="/admin/feedback" element={<AdminFeedback />} />
                     </Route>}

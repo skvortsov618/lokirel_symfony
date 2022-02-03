@@ -121,8 +121,9 @@ class BlogController extends AbstractController
         // vars
         $data=json_decode($request->getContent(), true);
         $slug = isset($data['slug']) ? MiscHelper::esc_and_cut($data['slug'], 250) : '';
+        $id = isset($data['post_id']) && is_numeric($data['post_id']) ? $data['post_id'] : 0;
         // validate
-        if (!$slug) {
+        if (!$slug && !$id) {
             $response = new JsonResponse();
             $response->setStatusCode(500);
             $response->headers->set("Content-Type", "application/json");
@@ -131,13 +132,16 @@ class BlogController extends AbstractController
         }
         // query
         $registry = $registry->getManager();
-        $post = $registry->getRepository(Post::class)->findOneBy(["slug"=>$slug]);
+        if ($id) {
+            $post = $registry->getRepository(Post::class)->findOneBy(["id"=>$id]);
+        } else {
+            $post = $registry->getRepository(Post::class)->findOneBy(["slug"=>$slug]);
+        }
         $result = $post->getFullValues();
         // output
         $response = new JsonResponse();
         $response->setStatusCode(200);
         $response->headers->set("Content-Type", "application/json");
-//        $response->headers->set("Access-Control-Allow-Origin", "*");
         $response->setContent((json_encode($result)));
         return $response;
     }
@@ -254,12 +258,12 @@ class BlogController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $post_id = isset($data['post_id']) && is_numeric($data['post_id']) ? $data['post_id'] : 0;
-        $title=isset($data['title']) ? MiscHelper::esc_and_cut($data['title']) : '';
-        $cover=isset($data['cover']) ? MiscHelper::esc_and_cut($data['title']) : '';
-        $slug=isset($data['slug']) ? MiscHelper::esc_and_cut($data['slug']) : '';
-        $hidden=isset($data['hidden']) && htmlentities( $data["fmailing"], ENT_QUOTES, "UTF-8" ) == "1" ? true : false;
-        $_blocks=isset($data['blocks']) && is_array($data['blocks']) ? $data['blocks'] : [];
+        $post_id = isset($data['id']) && is_numeric($data['id']) ? $data['id'] : 0;
+        $title=isset($data['title']) ? MiscHelper::esc_and_cut($data['title'], 250) : '';
+        $cover=isset($data['cover']) ? MiscHelper::esc_and_cut($data['cover'], 250) : '';
+        $slug=isset($data['slug']) ? MiscHelper::esc_and_cut($data['slug'], 250) : '';
+        $hidden=isset($data['hidden']) && htmlentities( $data["hidden"], ENT_QUOTES, "UTF-8" ) == "1" ? true : false;
+        $_blocks=isset($data['body']) && is_array($data['body']) ? $data['body'] : [];
         // validate
         $errors = [];
         if (!$post_id) $errors[] = "invalid post_id";
