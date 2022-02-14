@@ -32,9 +32,10 @@ const img = {
     height: '100%'
 };
 
-const ImageDropbox = () => {
+const ImageDropbox = ({callback}) => {
     const [open, setOpen] = useState(true)
     const [previewFiles, setPreviewFiles] = useState([]);
+
     const {getRootProps, getInputProps} = useDropzone({
         accept: 'image/jpeg, image/png',
         onDrop: acceptedFiles => {
@@ -58,6 +59,7 @@ const ImageDropbox = () => {
                 })
                 .then((data)=>{
                     console.log(data)
+                    callback(data)
                 })
             })
         }

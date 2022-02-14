@@ -14,6 +14,10 @@ const AdminGallery = () => {
 
     let {data:images, isPending, error} = useFetch("https://localhost:8000/images", {})
 
+    const handleCallback = (data) => {
+        console.log('callback here', data)
+    }
+
     return (
         <div>
             {images && <ImageList sx={{ width: 500, height: 450 }}>
@@ -29,7 +33,7 @@ const AdminGallery = () => {
                     />
                 </ImageListItem>))}
             </ImageList>}
-            <ImageDropbox/>
+            <ImageDropbox callback={handleCallback}/>
         </div>
     )
 }
