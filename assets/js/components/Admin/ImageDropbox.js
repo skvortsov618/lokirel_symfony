@@ -1,5 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button'
+import Fade from '@mui/material/Fade';
+import Box from '@mui/material/Box';
 
 const thumbsContainer = {
     display: 'flex',
@@ -33,8 +37,16 @@ const img = {
 };
 
 const ImageDropbox = ({callback}) => {
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
     const [previewFiles, setPreviewFiles] = useState([]);
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
+    }
 
     const {getRootProps, getInputProps} = useDropzone({
         accept: 'image/jpeg, image/png',
@@ -83,12 +95,31 @@ const ImageDropbox = ({callback}) => {
 
     return (
         <div>
-            {open && <section className="container" style={{backgroundColor:"blueviolet"}}>
-                <div {...getRootProps({className: 'dropzone'})}>
-                <input {...getInputProps()} />
-                <p>Drag 'n' drop some files here, or click to select files</p>
-                </div>
-            </section>}
+            <Button onClick={handleOpen}>Upload Images</Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+            >
+                <Fade in={open}>
+                    <Box sx={{position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: 400,
+                            bgcolor: 'background.paper',
+                            border: '2px solid #000',
+                            boxShadow: 24,
+                            p: 4}}
+                    >
+                        <section className="container" style={{backgroundColor:"blueviolet", height: "100%", width: "100%"}}>
+                            <div {...getRootProps({className: 'dropzone'})}>
+                            <input {...getInputProps()} />
+                            <p>Drag 'n' drop some files here, or click to select files</p>
+                            </div>
+                        </section>
+                    </Box>
+                </Fade>
+            </Modal>
             <div style={thumbsContainer}>
                 {thumbs}
             </div>
