@@ -35,6 +35,8 @@
         "react-dropzone": "^11.5.3",
         "react-helmet": "^6.1.0",
         "react-router-dom": "^6.0.2",
+        "slate": "^0.72.8",
+        "slate-react": "^0.72.9",
         "styled-components": "^5.3.3",
         "swiper": "^7.3.1"
     },
