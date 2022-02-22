@@ -1,5 +1,5 @@
 import React, {useState,useEffect, useCallback, useMemo} from "react";
-import { createEditor, Editor, Transforms } from 'slate'
+import { createEditor, Editor, Transforms, Text } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import { Button } from "@mui/material";
 
@@ -41,13 +41,19 @@ const RichBlockEditor = ({block, callback}) => {
     const [value, setValue] = useState(JSON.parse(block.text))
 
     const renderElement = useCallback(props => {
-    switch (props.element.type) {
-        case 'code':
-            return <CodeElement {...props} />
-        default:
-            return <DefaultElement {...props} />
-        }
+        switch (props.element.type) {
+            case 'code':
+                return <CodeElement {...props} />
+            case 'image':
+                return <ImageElement {...props} />
+            default:
+                return <DefaultElement {...props} />
+            }
     },[])
+
+    const renderLeaf = useCallback(props => {
+        return <Leaf {...props} />
+    }, [])
 
     return (
     <Slate
@@ -63,16 +69,30 @@ const RichBlockEditor = ({block, callback}) => {
                 CODE
             </Button>
             <Button onMouseDown={(event) => {
+               event.preventDefault()
+               CustomEditor.toggleBoldMark(editor)
+            }}>
+                BOLD
+            </Button>
+            <Button onMouseDown={(event) => {
                 event.preventDefault()
-                console.log(JSON.stringify(value))
+                // const image = { type: 'img', url: 'https://localhost:8000/build/images/cardPic.27d1aa35.jpg', alt: 'office green', children: [text] }
+                Transforms.insertNodes(editor, { type: 'image', url: 'https://localhost:8000/build/images/cardPic.27d1aa35.jpg', alt: 'office green', children: [{text: ''}] })
+                console.log(value)
+            }}>
+                IMAGE
+            </Button>
+            <Button onMouseDown={(event) => {
+                event.preventDefault()
                 callback({...block, text: JSON.stringify(value)})
             }}>
-                CODE
+                SAVE
             </Button>
         </div>
         <Editable 
             editor={editor}
             renderElement={renderElement}
+            renderLeaf={renderLeaf}
         />
     </Slate>
     )
@@ -81,7 +101,16 @@ const RichBlockEditor = ({block, callback}) => {
 
 export default RichBlockEditor
 
-
+const Leaf = props => {
+    return (
+      <span
+        {...props.attributes}
+        style={{ fontWeight: props.leaf.bold ? 'bold' : 'normal' }}
+      >
+        {props.children}
+      </span>
+    )
+}
 const CodeElement = props => {
     return (
         <pre {...props.attributes}>
@@ -89,7 +118,13 @@ const CodeElement = props => {
         </pre>
     )
 }
-
+const ImageElement = ({ attributes, children, element }) => {
+    return (
+        <div>{children}
+        <img src={element.url} alt={element.alt}/>
+        </div>
+    )
+}
 const DefaultElement = props => {
     return <p {...props.attributes}>{props.children}</p>
 }
@@ -129,4 +164,4 @@ const CustomEditor = {
         { match: n => Editor.isBlock(editor, n) }
       )
     },
-  }
+}

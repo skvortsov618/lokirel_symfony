@@ -103,6 +103,10 @@ class BlogController extends AbstractController
         $results = [];
         foreach ($posts as $post) {
             $results[] = $post->getFullValues();
+            $j = count($results);
+            for ($i=0; $i < count($results[$j]['body']); $i++) {
+                $results[$j]['body'][$i]['text'] = html_entity_decode($results[$j]['body'][$i]['text'], ENT_QUOTES, "UTF-8");
+            }
         }
         // output
         $response = new JsonResponse();
@@ -138,6 +142,9 @@ class BlogController extends AbstractController
             $post = $registry->getRepository(Post::class)->findOneBy(["slug"=>$slug]);
         }
         $result = $post->getFullValues();
+        for ($i=0; $i < count($result['body']); $i++) {
+            $result['body'][$i]['text'] = html_entity_decode($result['body'][$i]['text'], ENT_QUOTES, "UTF-8");
+        }
         // output
         $response = new JsonResponse();
         $response->setStatusCode(200);
