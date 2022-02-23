@@ -17,11 +17,40 @@ class ContentController extends AbstractController
      * @Route("/content", name="app_content")
      * @return Response
      */
-    public function content(): Response
+    public function content(Request $request, ManagerRegistry $registry): Response
     {
-        return $this->render('content/index.html.twig', [
-            'controller_name' => 'ContentController',
-        ]);
+        // vars
+        $data=json_decode($request->getContent(), true);
+        $pack = isset($data['pack']) ? MiscHelper::esc_and_cut($data['pack']) : '';
+        // validation
+        if (!$pack) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+            $response->setContent((json_encode(['error'=>'invalid pack'])));
+            return $response;
+        }
+        // query
+        $manager=$registry->getManager();
+        $content = $manager->getRepository(ContentPair::class)->findBy(['pack'=>$pack]);
+        if (!$content) {
+            $response = new JsonResponse();
+            $response->setStatusCode(500);
+            $response->headers->set("Content-Type", "application/json");
+            $response->setContent(json_encode(['error'=>'pair not found']));
+            return $response;
+        }
+        // output
+        $result = [];
+        for ($i = 0; $i< count($content); $i++) {
+            $result[$i] = $content[$i]->getFullValues();
+            $result[$i]['content'] = html_entity_decode($result[$i]['content'], ENT_QUOTES, "UTF-8");
+        }
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        $response->headers->set("Content-Type", "application/json");
+        $response->setContent((json_encode($result)));
+        return $response;
     }
 
     /**
@@ -32,7 +61,7 @@ class ContentController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
+        $key = isset($data['placement_key']) ? MiscHelper::esc_and_cut($data['placement_key']) : '';
         // validation
         if (!$key) {
             $response = new JsonResponse();

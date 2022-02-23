@@ -37,12 +37,18 @@ class ContentPair
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $content_type;
+
     public function getFullValues() {
         return [
             'id'=>$this->getId(),
             'placement_key'=>$this->getPlacementKey(),
             'content'=>$this->getContent(),
-            'pack'=>$this->getPack()
+            'pack'=>$this->getPack(),
+            'type'=>$this->getContentType()
         ];
     }
 
@@ -95,6 +101,18 @@ class ContentPair
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getContentType(): ?string
+    {
+        return $this->content_type;
+    }
+
+    public function setContentType(?string $content_type): self
+    {
+        $this->content_type = $content_type;
 
         return $this;
     }
