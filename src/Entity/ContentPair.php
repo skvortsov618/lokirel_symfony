@@ -48,6 +48,7 @@ class ContentPair
             'placement_key'=>$this->getPlacementKey(),
             'content'=>$this->getContent(),
             'pack'=>$this->getPack(),
+            'description'=>$this->getDescription(),
             'type'=>$this->getContentType()
         ];
     }

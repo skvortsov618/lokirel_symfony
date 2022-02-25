@@ -3,8 +3,9 @@ import  './../../../styles/index.scss'
 import bgMain from './../../../images/backgrounds/001.jpg'
 import {MyBGBox, MyH1, MyH2, TypographyWrapper} from "./CustomComponents/FirstPageComponents";
 
-const BlockCover = () => {
+const BlockCover = ({header1, subheader1, picture}) => {
 
+    console.log(header1)
     const header    = "LOKIREL";
     const subheader = "Профессиональное озеленение и квалифицированная забота о растениях";
 

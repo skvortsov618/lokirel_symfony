@@ -21,7 +21,7 @@ class ContentController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $pack = isset($data['pack']) ? MiscHelper::esc_and_cut($data['pack']) : '';
+        $pack = isset($data['pack']) ? MiscHelper::esc_and_cut($data['pack'], 100) : '';
         // validation
         if (!$pack) {
             $response = new JsonResponse();
@@ -61,7 +61,7 @@ class ContentController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $key = isset($data['placement_key']) ? MiscHelper::esc_and_cut($data['placement_key']) : '';
+        $key = isset($data['placement_key']) ? MiscHelper::esc_and_cut($data['placement_key'], 100) : '';
         // validation
         if (!$key) {
             $response = new JsonResponse();
@@ -97,9 +97,9 @@ class ContentController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
-        $content = isset($data['content']) ? MiscHelper::esc_and_cut($data['content']) : '';
-        $pack = isset($data['pack']) ? MiscHelper::esc_and_cut($data['pack']) : '';
+        $key = isset($data['placement_key']) ? MiscHelper::esc_and_cut($data['placement_key'], 100) : '';
+        $content = isset($data['content']) ? MiscHelper::esc_and_cut($data['content'], 40000) : '';
+        $pack = isset($data['pack']) ? MiscHelper::esc_and_cut($data['pack'], 100) : '';
         // validation
         $errors = [];
         if (!$key) $errors[] = 'invalid key';
@@ -135,9 +135,9 @@ class ContentController extends AbstractController
     {
         // vars
         $data=json_decode($request->getContent(), true);
-        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
-        if (isset($data['content'])) $content = MiscHelper::esc_and_cut($data['content']);
-        if (isset($data['pack'])) $content = MiscHelper::esc_and_cut($data['pack']);
+        $key = isset($data['placement_key']) ? MiscHelper::esc_and_cut($data['placement_key'], 100) : '';
+        if (isset($data['content'])) $content = MiscHelper::esc_and_cut($data['content'], 40000);
+        if (isset($data['pack'])) $content = MiscHelper::esc_and_cut($data['pack'], 100);
         // validation
         $errors = [];
         if (!$key) $errors[] = 'invalid key';
@@ -182,7 +182,7 @@ class ContentController extends AbstractController
         // vars
         $data=json_decode($request->getContent(), true);
         $id = isset($data['id']) && is_numeric($data[id])? $data['id'] : 0;
-        $key = isset($data['placement_key']) ? $data['placement_key'] : '';
+        $key = isset($data['placement_key']) ? MiscHelper::esc_and_cut($data['placement_key'], 100) : '';
         // validation
         if (!$id && !$key) {
             $response = new JsonResponse();

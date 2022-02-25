@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react'
 
-const useFetch = (url,req_json) => {
-    const [data, setData] = useState([])
-    const [isPending, setIsPending] = useState(true)
-    const [error, setError] = useState(null)
+const useFetch = (url,req_json, callback) => {
 
     useEffect(() => {
-        console.log('useFetch: ', url)
         const abortCont = new AbortController();
+        console.log('a')
         fetch(url,{
             signal: abortCont.signal,
             method: 'POST',
@@ -20,27 +17,20 @@ const useFetch = (url,req_json) => {
             if(!res.ok ?? res.status != 200) {
                throw Error('could not fetch') 
             }
-            
             return res.json()
         })
         .then((data)=>{
-            console.log(data)
-            setData(data)
-            setIsPending(false)
-            setError(null)
+            let error = ''
+            callback(data, error)
         })
         .catch(err => {
-            if (err.name === 'AbortError') {
-                console.log('fetch aborted')
-            } else {
-                setError(err.message)
-                setIsPending(false)
+            if (err.name != 'AbortError') {
+                let data=''
+                callback(data, err.message)
             }
         })
         return () => abortCont.abort()
     }, [url])
-
-    return {data, isPending, error}
 }
 
 export default useFetch;
