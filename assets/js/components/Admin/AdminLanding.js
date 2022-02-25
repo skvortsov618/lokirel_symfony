@@ -4,7 +4,9 @@ import useFetch from '../useFetch'
 
 const AdminLanding = () => {
 
-    const [content, setContent] = useState([])
+    const [content, setContent] = useState(null)
+    let entries = null
+    if (content) entries = Object.entries(content)
 
     useFetch('https://localhost:8000/content', {pack: 'landing'}, (data, error) => {
         if (data) setContent(data)
@@ -12,38 +14,37 @@ const AdminLanding = () => {
 
     return (
         <div style={{color: "black"}}>
-            {content && content.map((pair, index)=> {
-                console.log(pair.content)
-                if ('string' == pair.type) { return (
-                    <div key={pair.placement_key}>
-                        <div>{pair.description}</div>
-                        <input defaultValue={pair.content} id={`input_${pair.placement_key}`}></input>
-                        <button id={`button_${pair.placement_key}`} onClick={()=>{
-                            handleSend(pair.placement_key, document.getElementById(`input_${pair.placement_key}`).value)
+            {entries && entries.map((entry, index)=> {
+                if ('string' == entry[1].type) { return (
+                    <div key={entry[0]}>
+                        <div>{entry[1].description}</div>
+                        <input defaultValue={entry[1].content} id={`input_${entry[0]}`}></input>
+                        <button id={`button_${entry[0]}`} onClick={()=>{
+                            handleSend(entry[0], document.getElementById(`input_${entry[0]}`).value)
                         }}>SEND</button>
                     </div>
                 )} else if ('text' == pair.type) { return (
-                    <div key={pair.placement_key}>
-                        <div>{pair.description}</div>
-                        <input defaultValue={pair.content} id={`input_${pair.placement_key}`}></input>
-                        <button id={`button_${pair.placement_key}`} onClick={()=>{
-                            handleSend(pair.placement_key, document.getElementById(`input_${pair.placement_key}`).value)
+                    <div key={entry[0]}>
+                        <div>{entry[1].description}</div>
+                        <input defaultValue={entry[1].content} id={`input_${entry[0]}`}></input>
+                        <button id={`button_${entry[0]}`} onClick={()=>{
+                            handleSend(entry[0], document.getElementById(`input_${entry[0]}`).value)
                         }}>SEND</button>
                     </div>
                 )} else if ('picture' == pair.type) { return (
-                    <div key={pair.placement_key}>
-                        <div>{pair.description}</div>
-                        <input defaultValue={pair.content} id={`input_${pair.placement_key}`}></input>
-                        <button id={`button_${pair.placement_key}`} onClick={()=>{
-                            handleSend(pair.placement_key, document.getElementById(`input_${pair.placement_key}`).value)
+                    <div key={entry[0]}>
+                        <div>{entry[1].description}</div>
+                        <input defaultValue={entry[1].content} id={`input_${entry[0]}`}></input>
+                        <button id={`button_${entry[0]}`} onClick={()=>{
+                            handleSend(entry[0], document.getElementById(`input_${entry[0]}`).value)
                         }}>SEND</button>
                     </div>
                 )} else if ('gallery' == pair.type) { return (
-                    <div key={pair.placement_key}>
-                        <div>{pair.description}</div>
-                        <input defaultValue={pair.content} id={`input_${pair.placement_key}`}></input>
-                        <button id={`button_${pair.placement_key}`} onClick={()=>{
-                            handleSend(pair.placement_key, document.getElementById(`input_${pair.placement_key}`).value)
+                    <div key={entry[0]}>
+                        <div>{entry[1].description}</div>
+                        <input defaultValue={entry[1].content} id={`input_${entry[0]}`}></input>
+                        <button id={`button_${entry[0]}`} onClick={()=>{
+                            handleSend(entry[0], document.getElementById(`input_${entry[0]}`).value)
                         }}>SEND</button>
                     </div>
                 )}

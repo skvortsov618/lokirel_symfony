@@ -3,11 +3,7 @@ import  './../../../styles/index.scss'
 import bgMain from './../../../images/backgrounds/001.jpg'
 import {MyBGBox, MyH1, MyH2, TypographyWrapper} from "./CustomComponents/FirstPageComponents";
 
-const BlockCover = ({header1, subheader1, picture}) => {
-
-    console.log(header1)
-    const header    = "LOKIREL";
-    const subheader = "Профессиональное озеленение и квалифицированная забота о растениях";
+const BlockCover = ({header, subheader, picture}) => {
 
     return (
 
@@ -18,15 +14,6 @@ const BlockCover = ({header1, subheader1, picture}) => {
             </TypographyWrapper>
 
         </MyBGBox>
-
-        // <div className="blockCover" style={{
-        //     backgroundImage: `url(${bgMain})`
-        // }}>
-        //     <div className="blockCover__titles">
-        //         <div className="blockCover__titles__header">{header}</div>
-        //         <h1 className="blockCover__titles__subheader">{ subheader }</h1>
-        //     </div>
-        // </div>
     );
 }
  

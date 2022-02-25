@@ -101,11 +101,10 @@ class BlogController extends AbstractController
             'search'=>$search
         ]);
         $results = [];
-        foreach ($posts as $post) {
-            $results[] = $post->getFullValues();
-            $j = count($results);
-            for ($i=0; $i < count($results[$j]['body']); $i++) {
-                $results[$j]['body'][$i]['text'] = html_entity_decode($results[$j]['body'][$i]['text'], ENT_QUOTES, "UTF-8");
+        for ($i=0; $i < count($posts); $i++) {
+            $results[$i] = $posts[$i]->getFullValues();
+            for ($j=0; $j < count($results[$i]['body']); $j++) {
+                $results[$i]['body'][$j]['text'] = html_entity_decode($results[$i]['body'][$j]['text'], ENT_QUOTES, "UTF-8");
             }
         }
         // output

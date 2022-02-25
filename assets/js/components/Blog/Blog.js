@@ -2,6 +2,7 @@ import React, {useState,useEffect} from "react";
 import useFetch from "../useFetch";
 import {Link} from 'react-router-dom'
 import Button from '@mui/material/Button';
+import { send, host } from "../../helpers/Helpers";
 
 const Blog = () => {
     const [searchTags, setSearchTags] = useState([])
@@ -13,42 +14,17 @@ const Blog = () => {
 
     const [isPending, setIsPending] = useState(true)
     const [error, setError] = useState(null)
-    const [posts, setPosts] = useState([])
-    const [content, setContent] = useState([])
+    const [posts, setPosts] = useState(null)
+    const [content, setContent] = useState(null)
 
-    const [tags, setTags] = useState([])
-    const [categories, setCategories] = useState([])
+    const [tags, setTags] = useState(null)
+    const [categories, setCategories] = useState(null)
 
-    useEffect(()=>{
-        fetch("https://localhost:8000/blog",{
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json;'
-            },
-            body: JSON.stringify({})
-        })
-        .then(async (res)=> {
-            if(!res.ok ?? res.status != 200) {
-               throw Error('could not fetch') 
-            }
-            return res.json()
-        })
-        .then((data)=>{
-            console.log(data)
-            setPosts(data.posts)
-            setContent(data)
-            setIsPending(false)
-            setError(null)
-        })
-        .catch(err => {
-            if (err.name === 'AbortError') {
-                console.log('fetch aborted')
-            } else {
-                setError(err.message)
-                setIsPending(false)
-            }
-        })
-    }, [])
+    useFetch(`${host()}/blog`, {}, (data,error)=> {
+        setIsPending(false)
+        if (error) setError(error)
+        else {setPosts(data.posts), setContent(data)}
+    })
 
     useEffect(()=>{setSearch({
         "tags": searchTags,
@@ -57,40 +33,6 @@ const Blog = () => {
         "page": page,
         "per_page": perPage
     })}, [searchTags,searchCategories,searchPhrase,page,perPage])
-
-    useEffect(()=>{
-        console.log("doing search")
-        console.log(search)
-        console.log(JSON.stringify(search))
-        setIsPending(true)
-        fetch("https://localhost:8000/blog/posts",{
-            method: 'POST',
-            headers: {
-                'Content-Type':'application/json;'
-            },
-            body: JSON.stringify(search)
-        })
-        .then(async (res)=> {
-            if(!res.ok ?? res.status != 200) {
-               throw Error('could not fetch') 
-            }
-            return res.json()
-        })
-        .then((data)=>{
-            console.log(data)
-            setPosts(data)
-            setIsPending(false)
-            setError(null)
-        })
-        .catch(err => {
-            if (err.name === 'AbortError') {
-                console.log('fetch aborted')
-            } else {
-                setError(err.message)
-                setIsPending(false)
-            }
-        })
-    }, [search])
 
     const switchTag = (e) => {
         let tag = e.target.getAttribute('slug')
@@ -112,12 +54,25 @@ const Blog = () => {
         setSearchPhrase(e.target.value)
     }
 
+    const handleSearch = (search) => {
+        send(`${host()}/blog/posts`, search, (data, error) => {
+            if (error) {
+                setIsPending(false)
+                setError(error)
+            } else {
+                setPosts(data)
+                setIsPending(false)
+                setError(null)
+            }
+        })
+    }
+
     return (
         <div style={{color: "black"}}>
             {isPending && <div>AWAIT.....</div>}
             <input onBlur={setPhrase}/>
             {content && <div>TAGS:</div>}
-            {content.tags && content.tags.map((tag, key)=>(
+            {content && content.tags.map((tag, key)=>(
                 <Button
                     slug={tag.slug}
                     key={tag.slug}
@@ -125,13 +80,14 @@ const Blog = () => {
                 >{tag.tag_name}</Button>
             ))}
             {content && <div>CATEGORIES:</div>}
-            {content.categories && content.categories.map((category, key)=>(
+            {content && content.categories.map((category, key)=>(
                 <Button
                     slug={category.slug}
                     key={category.slug}
                     onClick={switchCategory}
                 >{category.category_name}</Button>
             ))}
+            {content && <Button onClick={()=>{handleSearch(search)}}>SEARCH</Button>}
             {error && <div>{error}</div>}
             {!isPending && !content && !error && <div>NO TAGS</div>}
             {posts && posts.map((post, index)=>(
@@ -152,4 +108,4 @@ const Blog = () => {
     )
 }
 
-export default Blog;
+export default Blog

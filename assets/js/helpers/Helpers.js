@@ -27,7 +27,7 @@ export function send(url, req, callback) {
         body: JSON.stringify(req)
         })
     .then(async (res)=> {
-        if(!res.ok ?? res.status != 200) {
+        if(!res.ok && res.status != 200) {
             throw Error('could not fetch') 
         }
         return res.json()
@@ -40,10 +40,4 @@ export function send(url, req, callback) {
     })
 }
 
-export function pairElement(placement_key, array) {
-    for (let i=0; i<array.length; i++) {
-        if (array[i].placement_key == placement_key) {
-            return array[i]
-        }
-    }
-}
+export function host() {return 'https://localhost:8000'}

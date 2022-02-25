@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 
-const useFetch = (url,req_json, callback) => {
-
+const useFetch = (url, req_json, callback, deps=url) => {
+    console.log(url, deps)
     useEffect(() => {
         const abortCont = new AbortController();
-        console.log('a')
         fetch(url,{
             signal: abortCont.signal,
             method: 'POST',
@@ -14,7 +13,7 @@ const useFetch = (url,req_json, callback) => {
             body: JSON.stringify(req_json)
         })
         .then(async (res)=> {
-            if(!res.ok ?? res.status != 200) {
+            if(!res.ok && res.status != 200) {
                throw Error('could not fetch') 
             }
             return res.json()
@@ -30,7 +29,7 @@ const useFetch = (url,req_json, callback) => {
             }
         })
         return () => abortCont.abort()
-    }, [url])
+    }, [deps])
 }
 
 export default useFetch;
